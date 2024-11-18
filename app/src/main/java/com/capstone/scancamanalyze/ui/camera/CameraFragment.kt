@@ -31,8 +31,6 @@ class CameraFragment : Fragment() {
         }
         return root
     }
-
-    private value  akmal : String = "akmal"
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

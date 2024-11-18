@@ -151,10 +151,10 @@
                     android:contentDescription="Serum" />
 
                 <ImageView
-                    android:layout_width="60dp"
+                    android:layout_width="61dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/sunscreen"
-                    android:contentDescription="Sunscreen" />
+                    android:contentDescription="Sunscreen"
+                    android:src="@drawable/sunscreen" />
             </LinearLayout>
         </HorizontalScrollView>
 
