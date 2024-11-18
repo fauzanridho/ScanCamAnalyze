@@ -12,7 +12,7 @@ import com.capstone.scancamanalyze.databinding.FragmentCameraBinding
 class CameraFragment : Fragment() {
 
     private var _binding: FragmentCameraBinding? = null
-
+    private val name = "Fauzan"
     private val binding get() = _binding!!
 
     override fun onCreateView(
