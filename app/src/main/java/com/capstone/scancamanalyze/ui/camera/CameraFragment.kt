@@ -32,7 +32,9 @@ class CameraFragment : Fragment() {
         return root
     }
 
-    private value  akmal : String = "akmal"
+    private val  akmal : String = "akmal"
+    private val  fauzan : String = "fauzan"
+    private val  adit : String = "adit"
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
