@@ -24,6 +24,7 @@ gson = "2.10.0"
 lifecycle = "2.8.7"
 navigationFragmentKtx = "2.8.4"
 navigationUiKtx = "2.8.4"
+datastoreCoreAndroid = "1.1.1"
 
 [libraries]
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
@@ -53,6 +54,7 @@ viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version
 livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+androidx-datastore-core-android = { group = "androidx.datastore", name = "datastore-core-android", version.ref = "datastoreCoreAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

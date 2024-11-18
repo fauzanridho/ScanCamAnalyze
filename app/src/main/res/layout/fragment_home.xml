@@ -210,7 +210,5 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Repeat cards as needed -->
-
     </LinearLayout>
 </ScrollView>

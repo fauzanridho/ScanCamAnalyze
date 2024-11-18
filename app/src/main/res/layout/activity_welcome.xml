@@ -4,7 +4,7 @@
     android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".welcome.WelcomeActivity">
+    tools:context=".ui.welcome.WelcomeActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -51,29 +51,34 @@
         android:id="@+id/loginButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="492dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/teal_700"
         android:text="@string/login"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descTextView" />
+        app:flow_horizontalBias="0.0"
+        app:layout_constraintBottom_toTopOf="@+id/descTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+<!--    app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"-->
+<!--    app:layout_constraintStart_toStartOf="parent"-->
+<!--    app:layout_constraintTop_toBottomOf="@+id/descTextView"-->
 
     <Button
         android:id="@+id/signupButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="492dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/teal_700"
         android:text="@string/signup"
+        app:layout_constraintBottom_toTopOf="@+id/loginButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
-        app:layout_constraintTop_toBottomOf="@+id/descTextView" />
+        app:layout_constraintStart_toStartOf="parent" />
+<!--    app:layout_constraintEnd_toEndOf="parent"-->
+<!--    app:layout_constraintStart_toStartOf="@+id/guidelineVertical"-->
+<!--    app:layout_constraintTop_toBottomOf="@+id/descTextView"-->
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineHorizontal"
