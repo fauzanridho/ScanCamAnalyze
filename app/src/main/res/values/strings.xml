@@ -7,4 +7,15 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_profile">Profile</string>
     <string name="image_preview">gambar analisis</string>
+    <string name="title_login_page">Selamat datang di Aplikasi ScanCam Analyze</string>
+    <string name="message_login_page">silahkan Untuk Login</string>
+    <string name="email">EMAIL</string>
+    <string name="password">PASSWORD</string>
+    <string name="login">LOGIN\n</string>
+    <string name="title_signup_page">Silahkan Untuk Membuat Akun Terlebih Dahulu</string>
+    <string name="name">NAMA\n</string>
+    <string name="signup">SIGNUP\n</string>
+    <string name="image_auth">image signup</string>
+    <string name="title_welcome_page">Selamat Datang Di Aplikasi</string>
+    <string name="message_welcome_page">Jika Belum Punya Account Harap Signup Terlebih Dahulu</string>
 </resources>
