@@ -31,6 +31,9 @@ class CameraFragment : Fragment() {
         }
         return root
     }
+
+//    private val  akmal : String = "akmal"
+//    https://github.com/fauzanridho/ScanCamAnalyze.git
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

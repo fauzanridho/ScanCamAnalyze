@@ -1,4 +1,4 @@
-package com.capstone.scancamanalyze.pref
+package com.capstone.scancamanalyze.data.pref
 
 data class UserModel(
     val email: String,

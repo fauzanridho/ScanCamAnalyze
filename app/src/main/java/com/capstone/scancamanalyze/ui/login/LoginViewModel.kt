@@ -1,9 +1,9 @@
-package com.capstone.scancamanalyze.login
+package com.capstone.scancamanalyze.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.capstone.scancamanalyze.pref.UserModel
-import com.capstone.scancamanalyze.pref.UserRepository
+import com.capstone.scancamanalyze.data.pref.UserModel
+import com.capstone.scancamanalyze.data.pref.UserRepository
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val repository: UserRepository) : ViewModel() {
