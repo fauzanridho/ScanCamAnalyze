@@ -13,6 +13,12 @@
         android:theme="@style/Theme.ScanCamAnalyze"
         tools:targetApi="31">
         <activity
+            android:name=".ui.log.detailLog.DetailLogMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.detailArticle.DetailArticleActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.welcome.WelcomeActivity"
             android:exported="false" />
         <activity
