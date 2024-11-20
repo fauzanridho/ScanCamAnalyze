@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">ScanCamAnalyze</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_camera">Camera</string>
+    <string name="title_Log">Log</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_profile">Profile</string>
@@ -17,5 +17,10 @@
     <string name="signup">SIGNUP\n</string>
     <string name="image_auth">image signup</string>
     <string name="title_welcome_page">Selamat Datang Di Aplikasi</string>
-    <string name="message_welcome_page">Jika Belum Punya Account Harap Signup Terlebih Dahulu</string>
+    <string name="message_welcome_page">Jika Belum Punya Account Harap Signup</string>
+    <string name="avatar">Foto Profile</string>
+    <string name="settings">Setting</string>
+    <string name="language">Language</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="logout">Logout\n</string>
 </resources>
