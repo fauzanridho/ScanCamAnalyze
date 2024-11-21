@@ -5,12 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.capstone.scancamanalyze.di.Injection
 import com.capstone.scancamanalyze.ui.login.LoginViewModel
-import com.capstone.scancamanalyze.data.pref.UserRepository
+import com.capstone.scancamanalyze.data.UserRepository
 import com.capstone.scancamanalyze.ui.home.HomeViewModel
 import com.capstone.scancamanalyze.ui.profile.DataStoreManager
 import com.capstone.scancamanalyze.ui.profile.ProfileViewModel
 
-class ViewModelFactory(private val repository: UserRepository,private val dataStoreManager: DataStoreManager) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory(private val repository: UserRepository, private val dataStoreManager: DataStoreManager) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

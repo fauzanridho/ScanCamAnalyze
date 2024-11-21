@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.capstone.scancamanalyze.data.pref.UserModel
-import com.capstone.scancamanalyze.data.pref.UserRepository
+import com.capstone.scancamanalyze.data.UserRepository
 import kotlinx.coroutines.launch
 
 class ProfileViewModel(private val repository: UserRepository, private val dataStoreManager: DataStoreManager) : ViewModel() {

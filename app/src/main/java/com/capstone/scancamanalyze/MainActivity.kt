@@ -1,6 +1,7 @@
 package com.capstone.scancamanalyze
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
@@ -10,6 +11,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.capstone.scancamanalyze.databinding.ActivityMainBinding
 import com.capstone.scancamanalyze.ui.profile.DataStoreManager
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 
@@ -33,6 +35,9 @@ class MainActivity : AppCompatActivity() {
 
         // Setup Bottom Navigation
         setupBottomNavigation()
+
+        // Hapus Action Bar
+        getSupportActionBar()?.hide()
     }
 
     /**
@@ -58,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_camera, R.id.navigation_log, R.id.navigation_profile
+                R.id.navigation_home, R.id.navigation_camera, R.id.navigation_profile
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
