@@ -31,4 +31,7 @@
     <string name="title_signup">Create a new account</string>
     <string name="register">REGISTER</string>
     <string name="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
+    <string name="photo">detail photo analyze\n</string>
+    <string name="back_button">back</string>
+    <string name="product_image">produk image</string>
 </resources>

@@ -78,6 +78,13 @@ class HomeFragment : Fragment() {
         startActivity(intent)
     }
 
+//    private fun navigateToProdukActivity(productName: String) {
+//        val intent = Intent(requireContext(), ProdukActivity::class.java).apply {
+//            putExtra("PRODUCT_NAME", productName) // Mengirimkan data produk
+//        }
+//        startActivity(intent)
+//    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

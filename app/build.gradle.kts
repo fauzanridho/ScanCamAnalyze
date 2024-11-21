@@ -68,4 +68,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx.v261)
     implementation(libs.androidx.lifecycle.livedata.ktx.v261)
     implementation(libs.androidx.activity.ktx)
+
+    implementation(libs.glide)
 }
