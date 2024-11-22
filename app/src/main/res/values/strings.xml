@@ -14,7 +14,7 @@
     <string name="login">LOGIN</string>
     <string name="title_signup_page">Silahkan Untuk Membuat Akun Terlebih Dahulu</string>
     <string name="name">Nama</string>
-    <string name="signup">SIGNUP\n</string>
+    <string name="signup">SIGNUP</string>
     <string name="image_auth">image signup</string>
     <string name="title_welcome_page">Selamat Datang Di Aplikasi</string>
     <string name="message_welcome_page">Jika Belum Punya Account Harap Signup</string>
@@ -34,4 +34,6 @@
     <string name="photo">detail photo analyze\n</string>
     <string name="back_button">back</string>
     <string name="product_image">produk image</string>
+    <string name="pagi">Pagi hari</string>
+    <string name="malam">Malam Hari</string>
 </resources>

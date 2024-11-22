@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/iv_detail_photo_analyze"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="300dp"
             android:scaleType="centerCrop"
             android:contentDescription="@string/photo"
             tools:src="@tools:sample/avatars"/>
@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Levelnya di sini"
+            android:text="@string/level"
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center" />
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Bismillah gais selesai tepat waktu ayoooooooooo ceefaaattttt"
+            android:text="@string/description"
             android:textSize="16sp" />
 
     </LinearLayout>

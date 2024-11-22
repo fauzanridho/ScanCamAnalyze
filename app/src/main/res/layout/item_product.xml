@@ -2,12 +2,12 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="0dp"
+    android:layout_width="190dp"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_marginBottom="8dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp"
-    app:cardBackgroundColor="#212121"
+    android:layout_marginStart="6dp"
     android:foreground="?attr/selectableItemBackground"
     android:clickable="true">
 
@@ -17,7 +17,7 @@
         android:orientation="vertical"
         android:padding="8dp">
 
-        <!-- Gambar Produk -->
+        <!-- Gambar Product -->
         <ImageView
             android:id="@+id/ivProductImage"
             android:layout_width="match_parent"
@@ -26,7 +26,7 @@
             android:scaleType="centerCrop"
             android:contentDescription="@string/product_image" />
 
-        <!-- Nama Produk -->
+        <!-- Nama Product -->
         <TextView
             android:id="@+id/tvProductName"
             android:layout_width="match_parent"
@@ -34,21 +34,19 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:text="Nama Produk"
-            android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <!-- Brand Produk -->
+        <!-- Brand Product -->
         <TextView
             android:id="@+id/tvProductBrand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nama Brand"
-            android:textColor="#BDBDBD"
             android:textSize="14sp"
             android:layout_marginTop="4dp" />
 
-        <!-- Deskripsi Produk -->
+        <!-- Deskripsi Product -->
         <TextView
             android:id="@+id/tvProductDescription"
             android:layout_width="match_parent"
@@ -56,18 +54,16 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:text="Deskripsi singkat produk"
-            android:textColor="#BDBDBD"
             android:textSize="12sp"
             android:layout_marginTop="4dp" />
 
-        <!-- Harga Produk -->
+        <!-- Harga Product -->
         <TextView
             android:id="@+id/tvProductPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Rp 0"
-            android:textColor="@android:color/white"
             android:textSize="14sp"
             android:textStyle="bold" />
     </LinearLayout>

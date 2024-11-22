@@ -12,13 +12,14 @@
         android:id="@+id/image_preview"
         android:layout_width="0dp"
         android:layout_height="300dp"
-        android:background="@color/teal_200"
+        android:background="@color/colorSecondary"
         android:contentDescription="@string/image_preview"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/button_camera"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
 
     <!-- Camera Button -->
     <Button
@@ -27,7 +28,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:backgroundTint="@color/teal_700"
         android:text="@string/camera"
         app:layout_constraintEnd_toStartOf="@+id/button_gallery"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,10 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/teal_700"
         android:text="@string/gallery"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintStart_toEndOf="@+id/button_camera"
         app:layout_constraintTop_toBottomOf="@+id/image_preview" />
 
@@ -52,9 +50,7 @@
         android:id="@+id/button_analyze"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/teal_700"
         android:text="@string/analyze"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_camera" />
@@ -83,7 +79,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="@string/level"
-                android:textColor="@color/purple_500"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

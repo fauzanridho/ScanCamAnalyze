@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.scancamanalyze.ViewModelFactory
 import com.capstone.scancamanalyze.databinding.FragmentHomeBinding
 import com.capstone.scancamanalyze.ui.detail.analyze.DetailAnalyzeActivity
+import com.capstone.scancamanalyze.ui.home.product.ProductActivity
 import com.capstone.scancamanalyze.ui.welcome.WelcomeActivity
 
 class HomeFragment : Fragment() {
@@ -33,6 +34,10 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
         setupRecyclerView()
         fetchStories()
+        binding.containerProducts.setOnClickListener {
+            val intent = Intent(requireContext(), ProductActivity::class.java)
+            startActivity(intent)
+        }
         viewModel.getSession().observe(viewLifecycleOwner) { user ->
             if (!user.isLogin) {
                 val intent = Intent(requireContext(), WelcomeActivity::class.java)
@@ -79,8 +84,8 @@ class HomeFragment : Fragment() {
     }
 
 //    private fun navigateToProdukActivity(productName: String) {
-//        val intent = Intent(requireContext(), ProdukActivity::class.java).apply {
-//            putExtra("PRODUCT_NAME", productName) // Mengirimkan data produk
+//        val intent = Intent(requireContext(), ProductActivity::class.java).apply {
+//            putExtra("PRODUCT_NAME", productName) // Mengirimkan data product
 //        }
 //        startActivity(intent)
 //    }

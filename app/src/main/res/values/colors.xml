@@ -7,4 +7,17 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#FFC1CC</color> <!-- Pastel Pink -->
+    <color name="colorPrimaryDark">#FFA6B9</color> <!-- Slightly Darker Pink -->
+    <!-- White -->
+
+    <!-- Secondary Colors -->
+    <color name="colorSecondary">#F8E8EE</color> <!-- Soft Rose Beige -->
+    <color name="colorSecondaryVariant">#00796B</color> <!-- Teal 700 --><!-- Black -->
+
+    <!-- Neutral -->
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorGrayLight">#D3D3D3</color>
+    <color name="colorAccent">#F8E8EE</color> <!-- Soft Rose Beige -->
+
 </resources>
