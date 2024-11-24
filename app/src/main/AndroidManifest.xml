@@ -24,6 +24,9 @@
         android:theme="@style/Theme.ScanCamAnalyze"
         tools:targetApi="31">
         <activity
+            android:name=".ui.home.product.detailproduct.DetailProduct"
+            android:exported="false" />
+        <activity
             android:name=".ui.home.product.ProductActivity"
             android:exported="false" />
         <activity

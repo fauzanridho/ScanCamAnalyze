@@ -7,7 +7,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_profile">Profile</string>
     <string name="image_preview">gambar analisis</string>
-    <string name="title_login_page">Selamat datang di Aplikasi ScanCam Analyze</string>
+    <string name="title_login_page">Selamat datang di Aplikasi</string>
     <string name="message_login_page">silahkan Untuk Login</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
