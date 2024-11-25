@@ -1,11 +1,14 @@
 package com.capstone.scancamanalyze.ui.login
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.view.animation.DecelerateInterpolator
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -26,7 +29,53 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupView()
+        startAnimation()
         setupAction()
+    }
+    private fun startAnimation() {
+        val titleAnimation = ObjectAnimator.ofFloat(binding.titleTextView, "alpha", 1f).apply {
+            duration = 500
+        }
+
+        val messageAnimation = ObjectAnimator.ofFloat(binding.messageTextView, "alpha", 1f).apply {
+            duration = 500
+        }
+
+        val emailTextAnimation = ObjectAnimator.ofFloat(binding.emailTextView, "alpha", 1f).apply {
+            duration = 500
+        }
+
+        val emailFieldAnimation =
+            ObjectAnimator.ofFloat(binding.emailEditTextLayout, "alpha", 1f).apply {
+                duration = 500
+            }
+
+        val passwordTextAnimation =
+            ObjectAnimator.ofFloat(binding.passwordTextView, "alpha", 1f).apply {
+                duration = 500
+            }
+
+        val passwordFieldAnimation =
+            ObjectAnimator.ofFloat(binding.passwordEditTextLayout, "alpha", 1f).apply {
+                duration = 500
+            }
+
+        val buttonAnimation = ObjectAnimator.ofFloat(binding.loginButton, "alpha", 1f).apply {
+            duration = 500
+        }
+        AnimatorSet().apply {
+            interpolator = DecelerateInterpolator()
+            playSequentially(
+                titleAnimation,
+                messageAnimation,
+                emailTextAnimation,
+                emailFieldAnimation,
+                passwordTextAnimation,
+                passwordFieldAnimation,
+                buttonAnimation
+            )
+            start()
+        }
     }
 
     private fun setupView() {

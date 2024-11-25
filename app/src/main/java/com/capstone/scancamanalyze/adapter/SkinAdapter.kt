@@ -1,4 +1,4 @@
-package com.capstone.scancamanalyze.ui.log
+package com.capstone.scancamanalyze.adapter
 
 import android.view.LayoutInflater
 import android.view.View

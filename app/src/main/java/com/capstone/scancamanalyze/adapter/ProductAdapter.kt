@@ -1,10 +1,11 @@
-package com.capstone.scancamanalyze.ui.home.product
+package com.capstone.scancamanalyze.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.scancamanalyze.databinding.ItemProductBinding
+import com.capstone.scancamanalyze.ui.home.product.Product
 import com.capstone.scancamanalyze.ui.home.product.detailproduct.DetailProduct
 
 class ProductAdapter(private val products: List<Product>) :

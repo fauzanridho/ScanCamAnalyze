@@ -1,9 +1,12 @@
 package com.capstone.scancamanalyze.ui.signup
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.view.animation.DecelerateInterpolator
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +24,7 @@ class SignupActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupView()
+        startAnimation()
         setupAction()
     }
 
@@ -36,6 +40,41 @@ class SignupActivity : AppCompatActivity() {
         }
         supportActionBar?.hide()
     }
+
+    private fun startAnimation() {
+        val titleAnimation = ObjectAnimator.ofFloat(binding.registerTitleTextView, "alpha", 1f).apply {
+            duration = 500
+        }
+
+        val nameFieldAnimation = ObjectAnimator.ofFloat(binding.nameEditTextLayout, "alpha", 1f).apply {
+            duration = 500
+        }
+
+        val emailFieldAnimation = ObjectAnimator.ofFloat(binding.emailEditTextLayout, "alpha", 1f).apply {
+            duration = 500
+        }
+
+        val passwordFieldAnimation = ObjectAnimator.ofFloat(binding.passwordEditTextLayout, "alpha", 1f).apply {
+            duration = 500
+        }
+
+        val registerButtonAnimation = ObjectAnimator.ofFloat(binding.registerButton, "alpha", 1f).apply {
+            duration = 500
+        }
+
+        AnimatorSet().apply {
+            interpolator = DecelerateInterpolator()
+            playSequentially(
+                titleAnimation,
+                nameFieldAnimation,
+                emailFieldAnimation,
+                passwordFieldAnimation,
+                registerButtonAnimation
+            )
+            start()
+        }
+    }
+
 
     private fun setupAction() {
         binding.registerButton.setOnClickListener {

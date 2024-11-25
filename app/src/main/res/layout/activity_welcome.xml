@@ -21,16 +21,26 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="32dp"
         android:text="@string/title_welcome_page"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal" />
+        app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal"
+        android:alpha="0"
+        tools:alpha="100" />
+
+    <!--    app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"-->
+<!--    app:layout_constraintStart_toStartOf="parent"-->
+<!--    app:layout_constraintTop_toBottomOf="@+id/descTextView"-->
+
+    <!--    app:layout_constraintEnd_toEndOf="parent"-->
+<!--    app:layout_constraintStart_toStartOf="@+id/guidelineVertical"-->
+<!--    app:layout_constraintTop_toBottomOf="@+id/descTextView"-->
 
     <TextView
         android:id="@+id/descTextView"
@@ -45,7 +55,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        android:alpha="0"
+        tools:alpha="100" />
 
     <Button
         android:id="@+id/loginButton"
@@ -53,16 +65,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="60dp"
         android:backgroundTint="@color/colorPrimary"
         android:text="@string/login"
-        app:flow_horizontalBias="0.0"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toTopOf="@+id/descTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-<!--    app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"-->
-<!--    app:layout_constraintStart_toStartOf="parent"-->
-<!--    app:layout_constraintTop_toBottomOf="@+id/descTextView"-->
+        app:layout_constraintStart_toStartOf="parent"
+        android:alpha="0"
+        tools:alpha="100" />
 
     <Button
         android:id="@+id/signupButton"
@@ -70,15 +82,15 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="@color/colorPrimary"
         android:text="@string/signup"
         app:layout_constraintBottom_toTopOf="@+id/loginButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-<!--    app:layout_constraintEnd_toEndOf="parent"-->
-<!--    app:layout_constraintStart_toStartOf="@+id/guidelineVertical"-->
-<!--    app:layout_constraintTop_toBottomOf="@+id/descTextView"-->
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        android:alpha="0"
+        tools:alpha="100" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineHorizontal"
@@ -87,7 +99,9 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintGuide_percent="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:alpha="0"
+        tools:alpha="100" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineVertical"
@@ -96,6 +110,8 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintGuide_percent="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:alpha="0"
+        tools:alpha="100" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

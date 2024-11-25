@@ -1,5 +1,7 @@
 package com.capstone.scancamanalyze.ui.welcome
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
@@ -64,12 +66,52 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
+        // Tombol Login
         binding.loginButton.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
+            startButtonAnimation(binding.loginButton) { // Panggil animasi pada tombol login
+                startActivity(
+                    Intent(
+                        this,
+                        LoginActivity::class.java
+                    )
+                ) // Setelah animasi selesai, buka LoginActivity
+                overridePendingTransition(
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left
+                ) // Efek transisi antar halaman
+            }
         }
 
+        // Tombol Signup
         binding.signupButton.setOnClickListener {
-            startActivity(Intent(this, SignupActivity::class.java))
+            startButtonAnimation(binding.signupButton) { // Panggil animasi pada tombol signup
+                startActivity(
+                    Intent(
+                        this,
+                        SignupActivity::class.java
+                    )
+                )
+                overridePendingTransition(
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left
+                )
+            }
+        }
+    }
+    private fun startButtonAnimation(view: View, onAnimationEnd: () -> Unit) {
+        val scaleX = ObjectAnimator.ofFloat(view, View.SCALE_X, 1f, 1.1f, 1f).setDuration(300)
+        val scaleY = ObjectAnimator.ofFloat(view, View.SCALE_Y, 1f, 1.1f, 1f).setDuration(300)
+        val alpha = ObjectAnimator.ofFloat(view, View.ALPHA, 1f, 0.7f, 1f).setDuration(300)
+
+        AnimatorSet().apply {
+            playTogether(scaleX, scaleY, alpha)
+            addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    super.onAnimationEnd(animation)
+                    onAnimationEnd()
+                }
+            })
+            start()
         }
     }
 }

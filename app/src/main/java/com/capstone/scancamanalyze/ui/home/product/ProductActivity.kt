@@ -1,10 +1,10 @@
 package com.capstone.scancamanalyze.ui.home.product
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.capstone.scancamanalyze.R
+import com.capstone.scancamanalyze.adapter.ProductAdapter
 import com.capstone.scancamanalyze.databinding.ActivityProductBinding
 
 
