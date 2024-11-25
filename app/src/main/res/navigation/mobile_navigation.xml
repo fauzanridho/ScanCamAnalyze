@@ -14,13 +14,13 @@
     <fragment
         android:id="@+id/navigation_camera"
         android:name="com.capstone.scancamanalyze.ui.camera.CameraFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_camera"
         tools:layout="@layout/fragment_camera" />
 
     <fragment
         android:id="@+id/navigation_log"
         android:name="com.capstone.scancamanalyze.ui.log.LogFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_Log"
         tools:layout="@layout/fragment_log" />
 
     <fragment

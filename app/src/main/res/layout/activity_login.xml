@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal2"
-        app:srcCompat="@drawable/sunscreen" />
+        app:srcCompat="@drawable/logo" />
 
     <TextView
         android:id="@+id/titleTextView"
@@ -39,12 +39,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:text="@string/message_login_page"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
@@ -118,11 +119,13 @@
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="32dp"
-        android:backgroundTint="@color/teal_700"
+        android:backgroundTint="@color/colorPrimary"
         android:text="@string/login"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLayout" />
 
@@ -143,5 +146,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintGuide_percent="0.1"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="167dp"
+        tools:layout_editor_absoluteY="336dp"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
