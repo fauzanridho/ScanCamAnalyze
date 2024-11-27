@@ -9,23 +9,17 @@ import com.capstone.scancamanalyze.data.pref.UserModel
 import com.capstone.scancamanalyze.data.UserRepository
 import com.capstone.scancamanalyze.data.api.ApiConfig
 import com.capstone.scancamanalyze.data.api.EventResponse
+import com.capstone.scancamanalyze.data.local.AnalyzeEntity
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: UserRepository) : ViewModel() {
 
-    private val _articleList = MutableLiveData<EventResponse>()
-    val articleList: LiveData<EventResponse> = _articleList
+    private val _analyzeList = MutableLiveData<List<AnalyzeEntity>>()
+    val analyzeList: LiveData<List<AnalyzeEntity>> get() = _analyzeList
 
-    fun getStories() {
+    fun fetchAnalyzeHistory() {
         viewModelScope.launch {
-            repository.getSession().collect { user ->
-                try {
-                    val response = ApiConfig.getApiService().getAllEvents()
-                    _articleList.value = response
-                } catch (e: Exception) {
-                    _articleList.value = EventResponse(error = true, message = e.message)
-                }
-            }
+            _analyzeList.postValue(repository.getAllAnalyzes())
         }
     }
     fun getSession(): LiveData<UserModel> {
