@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -9,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.capstone.scancamanalyze"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -35,6 +36,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        mlModelBinding = true
     }
 }
 
@@ -44,8 +46,6 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.activity)
@@ -69,5 +69,12 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx.v261)
     implementation(libs.androidx.activity.ktx)
 
-    implementation(libs.glide)
+    implementation(libs.tensorflow.lite.task.vision)
+    implementation(libs.tensorflow.lite.support.v044)
+    implementation(libs.tensorflow.lite.metadata.v044)
+    implementation(libs.tensorflow.lite.task.vision)
+
+    ksp(libs.room.compiler)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
 }

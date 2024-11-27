@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.scancamanalyze.ViewModelFactory
+import com.capstone.scancamanalyze.adapter.AnalyzeAdapter
 import com.capstone.scancamanalyze.databinding.FragmentHomeBinding
 import com.capstone.scancamanalyze.ui.detail.analyze.DetailAnalyzeActivity
 import com.capstone.scancamanalyze.ui.home.product.ProductActivity
