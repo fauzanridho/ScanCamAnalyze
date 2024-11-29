@@ -41,7 +41,6 @@ class UserRepository private constructor(
         return analyzeDao.getAllAnalyzes()
     }
 
-
     companion object {
         @Volatile
         private var instance: UserRepository? = null
