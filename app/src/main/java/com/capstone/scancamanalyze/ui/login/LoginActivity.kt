@@ -103,7 +103,7 @@ class LoginActivity : AppCompatActivity() {
                 showLoading(false) // Sembunyikan progress bar setelah selesai
                 AlertDialog.Builder(this).apply {
                     setTitle("Yeah!")
-                    setMessage("Anda berhasil login. Sudah tidak sabar untuk belajar ya?")
+                    setMessage("Anda berhasil login.")
                     setPositiveButton("Lanjut") { _, _ ->
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         intent.flags =

@@ -1,12 +1,12 @@
-package com.capstone.scancamanalyze.ui.home.product.detailproduct
+package com.capstone.scancamanalyze.ui.detail.product
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.capstone.scancamanalyze.R
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.lifecycleScope
 import com.capstone.scancamanalyze.databinding.ActivityDetailProductBinding
+import com.capstone.scancamanalyze.ui.profile.DataStoreManager
+import kotlinx.coroutines.launch
 
 class DetailProduct : AppCompatActivity() {
 
@@ -30,5 +30,6 @@ class DetailProduct : AppCompatActivity() {
         binding.tvProductDetails.text = productDescription
         binding.tvProductPrice.text = productPrice
         binding.ivProductImage.setImageResource(productImage)
+        getSupportActionBar()?.hide()
     }
 }

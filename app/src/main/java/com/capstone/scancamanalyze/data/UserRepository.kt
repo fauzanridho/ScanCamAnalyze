@@ -37,6 +37,9 @@ class UserRepository private constructor(
         )
         analyzeDao.insertAnalyze(analyzeEntity)
     }
+    suspend fun getAllAnalyzes(): List<AnalyzeEntity> {
+        return analyzeDao.getAllAnalyzes()
+    }
 
     companion object {
         @Volatile

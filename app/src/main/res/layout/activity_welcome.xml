@@ -24,7 +24,6 @@
         android:layout_marginTop="28dp"
         android:layout_marginEnd="32dp"
         android:text="@string/title_welcome_page"
-        android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,14 +33,6 @@
         android:alpha="0"
         tools:alpha="100" />
 
-    <!--    app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"-->
-<!--    app:layout_constraintStart_toStartOf="parent"-->
-<!--    app:layout_constraintTop_toBottomOf="@+id/descTextView"-->
-
-    <!--    app:layout_constraintEnd_toEndOf="parent"-->
-<!--    app:layout_constraintStart_toStartOf="@+id/guidelineVertical"-->
-<!--    app:layout_constraintTop_toBottomOf="@+id/descTextView"-->
-
     <TextView
         android:id="@+id/descTextView"
         android:layout_width="0dp"
@@ -50,7 +41,6 @@
         android:layout_marginTop="224dp"
         android:layout_marginEnd="32dp"
         android:text="@string/message_welcome_page"
-        android:textColor="@color/colorPrimary"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -66,7 +56,6 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="60dp"
-        android:backgroundTint="@color/colorPrimary"
         android:text="@string/login"
         android:clickable="true"
         android:focusable="true"
@@ -83,7 +72,6 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="32dp"
-        android:backgroundTint="@color/colorPrimary"
         android:text="@string/signup"
         app:layout_constraintBottom_toTopOf="@+id/loginButton"
         app:layout_constraintEnd_toEndOf="parent"

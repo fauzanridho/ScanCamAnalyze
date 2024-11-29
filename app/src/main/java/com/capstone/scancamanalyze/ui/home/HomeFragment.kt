@@ -17,6 +17,7 @@ import com.capstone.scancamanalyze.ui.detail.analyze.DetailAnalyzeActivity
 import com.capstone.scancamanalyze.ui.home.product.ProductActivity
 import com.capstone.scancamanalyze.ui.welcome.WelcomeActivity
 
+
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
@@ -33,9 +34,20 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
         setupRecyclerView()
-        fetchStories()
-        binding.containerProducts.setOnClickListener {
+        viewModel.fetchAnalyzeHistory()
+
+        viewModel.analyzeList.observe(viewLifecycleOwner) { analyzeData ->
+            Log.d("HomeFragment", "Analyze data received: $analyzeData")
+            if (analyzeData.isNotEmpty()) {
+                analyzeAdapter.analyzeList = analyzeData
+                analyzeAdapter.notifyDataSetChanged()
+            } else {
+                Toast.makeText(requireContext(), "No analyze data found", Toast.LENGTH_SHORT).show()
+            }
+        }
+        binding.containerProducts.setOnClickListener{
             val intent = Intent(requireContext(), ProductActivity::class.java)
             startActivity(intent)
         }
@@ -43,53 +55,32 @@ class HomeFragment : Fragment() {
             if (!user.isLogin) {
                 val intent = Intent(requireContext(), WelcomeActivity::class.java)
                 startActivity(intent)
+                requireActivity().finish()
             }
         }
-        return root
 
+        return root
     }
 
     private fun setupRecyclerView() {
-        analyzeAdapter = AnalyzeAdapter(emptyList()) { storyId ->
-            Log.d("RecyclerView", "Story ID Clicked: $storyId")
-            navigateToDetailAnalyzeActivity(storyId)
+        analyzeAdapter = AnalyzeAdapter(emptyList()) { position ->
+            // Menangani item click, dapatkan data berdasarkan posisi
+            val analyze = analyzeAdapter.analyzeList[position]
+            navigateToDetailAnalyzeActivity(analyze.id, position) // Pass position
         }
         binding.rvArticle.layoutManager = LinearLayoutManager(requireContext())
         binding.rvArticle.adapter = analyzeAdapter
     }
 
-    private fun fetchStories() {
-        viewModel.getStories()
-
-        viewModel.articleList.observe(requireActivity()) { articleResponse ->
-            if (articleResponse.error == false) {
-                articleResponse.listEvents?.let {
-                    analyzeAdapter.article = it
-                    analyzeAdapter.notifyDataSetChanged()
-                }
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    "Error fetching stories: ${articleResponse.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-    }
-
-    private fun navigateToDetailAnalyzeActivity(storyId: Int) {
+    private fun navigateToDetailAnalyzeActivity(analyzeId: Int, position: Int) {
         val intent = Intent(requireContext(), DetailAnalyzeActivity::class.java).apply {
-            putExtra("STORY_ID", storyId) // Mengirimkan storyId ke DetailAnalyzeActivity
+            putExtra("ANALYZE_ID", analyzeId)
+            putExtra("IMAGE_PATH", analyzeAdapter.analyzeList[position].imageName)
+            putExtra("LEVEL", analyzeAdapter.analyzeList[position].level)
+            putExtra("PREDICTION_RESULT", analyzeAdapter.analyzeList[position].predictionResult)
         }
         startActivity(intent)
     }
-
-//    private fun navigateToProdukActivity(productName: String) {
-//        val intent = Intent(requireContext(), ProductActivity::class.java).apply {
-//            putExtra("PRODUCT_NAME", productName) // Mengirimkan data product
-//        }
-//        startActivity(intent)
-//    }
 
     override fun onDestroyView() {
         super.onDestroyView()
