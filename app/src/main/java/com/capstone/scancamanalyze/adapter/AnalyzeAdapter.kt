@@ -1,6 +1,8 @@
 package com.capstone.scancamanalyze.adapter
 
 import android.content.Intent
+import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -34,15 +36,19 @@ class AnalyzeAdapter(
             binding.tvDescription.text = "Prediction: ${analyze.predictionResult}"
 
             Glide.with(binding.root.context)
-                .load(analyze.imageName)
+                .load(Uri.parse(analyze.imageName))  // Pastikan imageName adalah URI yang valid
                 .into(binding.imageResult)
 
             binding.root.setOnClickListener {
                 val context = binding.root.context
                 val intent = Intent(context, DetailAnalyzeActivity::class.java).apply {
                     putExtra("analyze_ID", analyze.id)
+                    putExtra("IMAGE_PATH", analyze.imageName)
+                    putExtra("LEVEL", analyze.level)
+                    putExtra("PREDICTION_RESULT", analyze.predictionResult)
                 }
                 context.startActivity(intent)
+                Log.d("AnalyzeAdapter", "Image URI: ${analyze.imageName}")
             }
         }
     }

@@ -41,28 +41,32 @@ class CameraFragment : Fragment() {
                 val bitmap = result.data?.extras?.get("data") as? Bitmap
                 bitmap?.let {
                     binding.imagePreview.setImageBitmap(it)
-//                    classifyImageFromBitmap(it)
+                    val tempUri = bitmapToTempUri(it)
+                    tempUri?.let { uri ->
+                        viewModel.setImageUri(uri)  // Simpan imageUri ke ViewModel
+                    }
                 }
             }
         }
 
-    // Launcher untuk galeri
     private val galleryLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
-                imageUri = it.data?.data
-                imageUri?.let { uri ->
-                    binding.imagePreview.setImageURI(uri)
-//                    classifyImageFromUri(uri)
+                val uri = it.data?.data
+                uri?.let {
+                    binding.imagePreview.setImageURI(it)
+                    viewModel.setImageUri(it)  // Simpan imageUri ke ViewModel
                 }
             }
         }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         _binding = FragmentCameraBinding.inflate(inflater, container, false)
 
         // Inisialisasi ImageClassifierHelper
@@ -98,6 +102,12 @@ class CameraFragment : Fragment() {
         viewModel.text.observe(viewLifecycleOwner) {
             binding.resultText.text = it
         }
+
+        viewModel.imageUri.observe(viewLifecycleOwner) { uri ->
+            uri?.let {
+                binding.imagePreview.setImageURI(it)  // Update preview jika imageUri berubah
+            }
+        }
     }
 
     private fun setupListeners() {
@@ -113,8 +123,10 @@ class CameraFragment : Fragment() {
         }
 
         binding.buttonAnalyze.setOnClickListener {
-            imageUri?.let { uri ->
+            viewModel.imageUri.value?.let { uri ->
                 classifyImageFromUri(uri)
+            } ?: run {
+                Log.e("CameraFragment", "No image selected")
             }
         }
     }
@@ -123,21 +135,26 @@ class CameraFragment : Fragment() {
         imageClassifierHelper.classifyStaticImage(uri)
     }
 
-    private fun classifyImageFromBitmap(bitmap: Bitmap) {
-        val uri = bitmapToTempUri(bitmap)
-        uri?.let { classifyImageFromUri(it) }
-    }
-
     private fun displayResults(results: MutableList<ImageClassifierHelper.Classifications>) {
-        val resultText = results.joinToString(separator = "\n") { "${it.label}: ${it.score * 100}%" }
+        if (results.isEmpty()) {
+            binding.resultText.text = "No results found"
+            Log.e("CameraFragment", "No classification results")
+            return
+        }
+
+        // Formatkan hasil menjadi string
+        val resultText = results.joinToString(separator = "\n") { "${it.label}: ${"%.2f".format(it.score * 100)}%" }
         binding.resultText.text = resultText
 
-        // Simpan hasil klasifikasi ke database menggunakan ViewModel
-        viewModel.saveAnalyzeData(
-            imageName = "Captured Image",
-            level = results.maxOf { it.score.times(100).toInt() }, // Contoh level dari skor tertinggi
-            predictionResult = results.firstOrNull()?.label ?: "Unknown"
-        )
+        // Ambil data klasifikasi terbaik
+        val bestResult = results.maxByOrNull { it.score }
+        val level = (bestResult?.score ?: 0f) * 100 // Mengonversi ke persentase
+        val predictionResult = bestResult?.label ?: "Unknown"
+
+        // Simpan hasil ke ViewModel
+        viewModel.imageUri.value?.let { uri ->
+            viewModel.saveAnalyzeData(uri, level.toInt(), predictionResult)
+        } ?: Log.e("CameraFragment", "No imageUri available for saving results")
     }
 
     private fun bitmapToTempUri(bitmap: Bitmap): Uri? {

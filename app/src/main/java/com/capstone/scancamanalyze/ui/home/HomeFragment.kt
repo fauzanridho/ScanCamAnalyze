@@ -14,6 +14,8 @@ import com.capstone.scancamanalyze.ViewModelFactory
 import com.capstone.scancamanalyze.adapter.AnalyzeAdapter
 import com.capstone.scancamanalyze.databinding.FragmentHomeBinding
 import com.capstone.scancamanalyze.ui.detail.analyze.DetailAnalyzeActivity
+import com.capstone.scancamanalyze.ui.home.product.ProductActivity
+import com.capstone.scancamanalyze.ui.welcome.WelcomeActivity
 
 
 class HomeFragment : Fragment() {
@@ -43,6 +45,17 @@ class HomeFragment : Fragment() {
                 analyzeAdapter.notifyDataSetChanged()
             } else {
                 Toast.makeText(requireContext(), "No analyze data found", Toast.LENGTH_SHORT).show()
+            }
+        }
+        binding.containerProducts.setOnClickListener{
+            val intent = Intent(requireContext(), ProductActivity::class.java)
+            startActivity(intent)
+        }
+        viewModel.getSession().observe(viewLifecycleOwner) { user ->
+            if (!user.isLogin) {
+                val intent = Intent(requireContext(), WelcomeActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
             }
         }
 

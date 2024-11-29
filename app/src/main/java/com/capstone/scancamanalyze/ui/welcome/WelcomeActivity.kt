@@ -12,12 +12,17 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.graphics.drawable.DrawableCompat.applyTheme
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.capstone.scancamanalyze.R
 import com.capstone.scancamanalyze.databinding.ActivityWelcomeBinding
 import com.capstone.scancamanalyze.ui.login.LoginActivity
+import com.capstone.scancamanalyze.ui.profile.DataStoreManager
 import com.capstone.scancamanalyze.ui.signup.SignupActivity
+import kotlinx.coroutines.launch
 
 class WelcomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWelcomeBinding
@@ -26,10 +31,10 @@ class WelcomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setupView()
         setupAction()
         playAnimation()
+
     }
 
     private fun playAnimation() {

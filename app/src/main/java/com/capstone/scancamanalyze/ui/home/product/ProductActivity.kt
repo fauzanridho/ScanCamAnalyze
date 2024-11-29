@@ -1,11 +1,13 @@
 package com.capstone.scancamanalyze.ui.home.product
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.capstone.scancamanalyze.R
 import com.capstone.scancamanalyze.adapter.ProductAdapter
 import com.capstone.scancamanalyze.databinding.ActivityProductBinding
+import com.capstone.scancamanalyze.ui.detail.product.DetailProduct
 
 
 class ProductActivity : AppCompatActivity() {
@@ -43,7 +45,16 @@ class ProductActivity : AppCompatActivity() {
             Product("Sunscreen A", "Brand V", "Deskripsi sunscreen", "Rp 90.000", R.drawable.sunscreen)
         )
 
-        productAdapter = ProductAdapter(allProducts)
+        productAdapter = ProductAdapter(allProducts) { product ->
+            val intent = Intent(this, DetailProduct::class.java).apply {
+                putExtra("EXTRA_PRODUCT_NAME", product.name)
+                putExtra("EXTRA_PRODUCT_BRAND", product.brand)
+                putExtra("EXTRA_PRODUCT_DESCRIPTION", product.description)
+                putExtra("EXTRA_PRODUCT_PRICE", product.price)
+                putExtra("EXTRA_PRODUCT_IMAGE", product.imageResId)
+            }
+            startActivity(intent)
+        }
         binding.rvProducts.layoutManager = GridLayoutManager(this, 2)
         binding.rvProducts.adapter = productAdapter
     }

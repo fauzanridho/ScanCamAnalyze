@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.capstone.scancamanalyze.databinding.ItemProductBinding
 import com.capstone.scancamanalyze.ui.home.product.Product
-import com.capstone.scancamanalyze.ui.home.product.detailproduct.DetailProduct
+import com.capstone.scancamanalyze.ui.detail.product.DetailProduct
 
 class ProductAdapter(private var products: List<Product>,private val onClick: (Product) -> Unit) :
     RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
