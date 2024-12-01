@@ -19,7 +19,7 @@
     <string name="title_welcome_page">Selamat Datang Di Aplikasi</string>
     <string name="message_welcome_page">Jika Belum Punya Account Harap Signup</string>
     <string name="avatar">Foto Profile</string>
-    <string name="settings">Setting</string>
+    <string name="settings">Settings</string>
     <string name="language">Language</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="logout">Logout</string>

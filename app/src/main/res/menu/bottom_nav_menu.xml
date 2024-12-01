@@ -11,15 +11,14 @@
         android:icon="@drawable/baseline_photo_camera_24"
         android:title="@string/title_camera" />
 
-<!--    <item-->
-<!--        android:id="@+id/navigation_log"-->
-<!--        android:icon="@drawable/baseline_history_24"-->
-<!--        android:title="@string/title_Log" />-->
+    <!--    <item-->
+    <!--        android:id="@+id/navigation_log"-->
+    <!--        android:icon="@drawable/baseline_history_24"-->
+    <!--        android:title="@string/title_Log" />-->
 
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/baseline_profile_24"
         android:title="@string/title_profile" />
-
 
 </menu>

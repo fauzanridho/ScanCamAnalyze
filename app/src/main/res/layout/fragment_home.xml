@@ -18,7 +18,8 @@
             android:id="@+id/tvWelcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/poppins_medium"
             android:paddingHorizontal="4dp"
             android:text="Welcome to scancam Analyze..."
             android:textSize="16sp" />
@@ -26,7 +27,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/poppins_bold"
             android:paddingHorizontal="4dp"
             android:text="Halo"
             android:textSize="24sp"
@@ -35,7 +37,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/poppins_medium"
             android:paddingHorizontal="4dp"
             android:text="Lakukan Rutin Kamu dengan beraktivitas supaya kulit tetap sehat"
             android:textSize="14sp" />
@@ -71,6 +74,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
                         android:text="@string/pagi"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -101,6 +105,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
                         android:text="@string/malam"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -121,6 +126,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            android:fontFamily="@font/poppins_medium"
             android:text="Rekomendasi produk perawatan Muka"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -128,7 +134,8 @@
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="4dp">
+            android:padding="4dp"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:id="@+id/container_products"
@@ -155,6 +162,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
                         android:text="Sabun Cuci Muka"
                         android:textSize="12sp" />
@@ -177,6 +185,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
                         android:text="Pelembab Muka"
                         android:textSize="12sp" />
@@ -199,6 +208,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
                         android:text="Toner"
                         android:textSize="12sp" />
@@ -221,6 +231,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
                         android:text="Serum"
                         android:textSize="12sp" />
@@ -242,6 +253,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
                         android:text="Sunscreen"
                         android:textSize="12sp" />
@@ -256,6 +268,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
+            android:fontFamily="@font/poppins_bold"
             android:paddingHorizontal="4dp"
             android:text="Log Analyze"
             android:textSize="16sp"
