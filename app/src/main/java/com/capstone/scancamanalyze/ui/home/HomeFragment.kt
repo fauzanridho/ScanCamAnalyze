@@ -14,6 +14,8 @@ import com.capstone.scancamanalyze.ViewModelFactory
 import com.capstone.scancamanalyze.adapter.AnalyzeAdapter
 import com.capstone.scancamanalyze.databinding.FragmentHomeBinding
 import com.capstone.scancamanalyze.ui.detail.analyze.DetailAnalyzeActivity
+import com.capstone.scancamanalyze.ui.home.malamhari.MalamHariActivity
+import com.capstone.scancamanalyze.ui.home.pagihari.PagiHariActivity
 import com.capstone.scancamanalyze.ui.home.product.ProductActivity
 import com.capstone.scancamanalyze.ui.welcome.WelcomeActivity
 
@@ -49,6 +51,16 @@ class HomeFragment : Fragment() {
         }
         binding.containerProducts.setOnClickListener{
             val intent = Intent(requireContext(), ProductActivity::class.java)
+            startActivity(intent)
+        }
+        binding.morningRoutineCardView.setOnClickListener {
+            val intent = Intent(requireContext(), PagiHariActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Set OnClickListener for night routine icon
+        binding.nightRoutineCardView.setOnClickListener {
+            val intent = Intent(requireContext(), MalamHariActivity::class.java)
             startActivity(intent)
         }
         viewModel.getSession().observe(viewLifecycleOwner) { user ->

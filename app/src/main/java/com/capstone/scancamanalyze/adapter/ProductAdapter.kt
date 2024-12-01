@@ -49,6 +49,7 @@ class ProductAdapter(private var products: List<Product>,private val onClick: (P
         }
     }
 
+
     override fun getItemCount() = products.size
 
     fun updateData(newProducts: List<Product>) {

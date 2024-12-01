@@ -77,4 +77,6 @@ dependencies {
     ksp(libs.room.compiler)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
+    //animation
+    implementation(libs.lottie)
 }
