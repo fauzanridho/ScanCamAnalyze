@@ -14,6 +14,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.capstone.scancamanalyze.R
 import com.capstone.scancamanalyze.databinding.ActivitySignupBinding
+import com.capstone.scancamanalyze.edittext.EmailEditText
+import com.google.android.material.textfield.TextInputLayout
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
@@ -22,6 +24,10 @@ class SignupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val emailEditText = findViewById<EmailEditText>(R.id.emailEditText)
+        val emailEditTextLayout = findViewById<TextInputLayout>(R.id.emailEditTextLayout)
+        emailEditText.setParentLayout(emailEditTextLayout)
 
         setupView()
         startAnimation()

@@ -13,9 +13,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.capstone.scancamanalyze.MainActivity
+import com.capstone.scancamanalyze.R
 import com.capstone.scancamanalyze.ViewModelFactory
 import com.capstone.scancamanalyze.databinding.ActivityLoginBinding
 import com.capstone.scancamanalyze.data.pref.UserModel
+import com.capstone.scancamanalyze.edittext.EmailEditText
+import com.capstone.scancamanalyze.edittext.PasswordEditText
+import com.google.android.material.textfield.TextInputLayout
 
 class LoginActivity : AppCompatActivity() {
     private val viewModel by viewModels<LoginViewModel> {
@@ -27,6 +31,11 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val emailEditText = findViewById<EmailEditText>(R.id.emailEditText)
+        val emailEditTextLayout = findViewById<TextInputLayout>(R.id.emailEditTextLayout)
+        emailEditText.setParentLayout(emailEditTextLayout)
+
 
         setupView()
         startAnimation()

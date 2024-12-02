@@ -63,6 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailTextView"
@@ -70,7 +71,7 @@
         android:alpha="0"
         tools:alpha="100">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.capstone.scancamanalyze.edittext.EmailEditText
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -100,6 +101,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         app:endIconMode="password_toggle"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordTextView"
@@ -107,7 +109,7 @@
         android:alpha="0"
         tools:alpha="100">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.capstone.scancamanalyze.edittext.PasswordEditText
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

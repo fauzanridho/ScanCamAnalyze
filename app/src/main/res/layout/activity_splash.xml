@@ -11,9 +11,11 @@
         android:id="@+id/animation_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:lottie_rawRes="@raw/animasi"
-        app:lottie_loop="true"
         app:lottie_autoPlay="true"
-        tools:ignore="MissingConstraints" />
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/animasi"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="102dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

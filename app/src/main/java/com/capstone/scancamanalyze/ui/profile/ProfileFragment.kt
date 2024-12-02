@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.capstone.scancamanalyze.R
 import com.capstone.scancamanalyze.ViewModelFactory
 import com.capstone.scancamanalyze.databinding.FragmentProfileBinding
 import com.capstone.scancamanalyze.ui.welcome.WelcomeActivity
@@ -39,6 +41,27 @@ class ProfileFragment : Fragment() {
                 startActivity(intent)
                 requireActivity().finish()
             }
+        }
+        binding.containerLanguage.setOnClickListener {
+            val languages = arrayOf("English", "Bahasa Indonesia")
+            val languageCodes = arrayOf("en", "id")
+            var selectedLanguageIndex = 0
+
+            AlertDialog.Builder(requireContext())
+                .setTitle(getString(R.string.language))
+                .setSingleChoiceItems(languages, selectedLanguageIndex) { _, which ->
+                    selectedLanguageIndex = which
+                }
+                .setPositiveButton(getString(android.R.string.ok)) { _, _ ->
+                    val selectedLanguageCode = languageCodes[selectedLanguageIndex]
+                    viewModel.changeLanguage(requireContext(), selectedLanguageCode)
+                    // Restart activity to apply changes
+                    val intent = requireActivity().intent
+                    requireActivity().finish()
+                    startActivity(intent)
+                }
+                .setNegativeButton(getString(android.R.string.cancel), null)
+                .show()
         }
 
         // Dark mode toggle
