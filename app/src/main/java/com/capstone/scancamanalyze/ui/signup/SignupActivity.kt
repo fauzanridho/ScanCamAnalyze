@@ -2,6 +2,7 @@ package com.capstone.scancamanalyze.ui.signup
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.opengl.ETC1.isValid
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsets
@@ -81,20 +82,48 @@ class SignupActivity : AppCompatActivity() {
         }
     }
 
-
     private fun setupAction() {
         binding.registerButton.setOnClickListener {
+            val isEmailValid = binding.emailEditText.isValid()
+            val isPasswordValid = binding.passwordEditText.isValid()
+
+            // Periksa validasi email dan password
+            if (!isEmailValid) {
+                AlertDialog.Builder(this).apply {
+                    setTitle("Error")
+                    setMessage("Email tidak valid. Pastikan format email benar, misalnya: example@gmail.com.")
+                    setPositiveButton("OK", null)
+                    create()
+                    show()
+                }
+                return@setOnClickListener
+            }
+
+            if (!isPasswordValid) {
+                AlertDialog.Builder(this).apply {
+                    setTitle("Error")
+                    setMessage("Password minimal harus memiliki 8 karakter.")
+                    setPositiveButton("OK", null)
+                    create()
+                    show()
+                }
+                return@setOnClickListener
+            }
+
+            // Ambil input email
             val email = binding.emailEditText.text.toString()
 
+            // Tampilkan dialog sukses
             AlertDialog.Builder(this).apply {
                 setTitle("Yeah!")
                 setMessage("Akun dengan $email sudah jadi nih. Yuk, login dan belajar coding.")
                 setPositiveButton("Lanjut") { _, _ ->
-                    finish()
+                    finish() // Kembali ke activity sebelumnya
                 }
                 create()
                 show()
             }
         }
     }
+
 }

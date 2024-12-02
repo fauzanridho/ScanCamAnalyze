@@ -36,6 +36,7 @@
     <string name="product_image">produk image</string>
     <string name="pagi">Pagi hari</string>
     <string name="malam">Malam Hari</string>
-    <string name="error_email">Email Salah Format</string>
-    <string name="error_password">Password tidak boleh kurang dari 8 karakter</string>
+    <string name="error_email">Format email tidak valid</string>
+    <string name="error_password">Minimal 8 karakter, Setidaknya 1 angka.</string>
+
 </resources>

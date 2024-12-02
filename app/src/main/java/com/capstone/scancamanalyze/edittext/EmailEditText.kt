@@ -30,16 +30,20 @@ class EmailEditText @JvmOverloads constructor(
             override fun afterTextChanged(s: Editable?) {
             }
         })
-
     }
 
     private fun isValidInput(input: CharSequence?): Boolean {
         return !input.isNullOrEmpty() &&
-                input.contains('@') &&
-                android.util.Patterns.EMAIL_ADDRESS.matcher(input).matches() &&
-                input.endsWith("@gmail.com")
+                android.util.Patterns.EMAIL_ADDRESS.matcher(input).matches()
     }
+
     fun setParentLayout(textInputLayout: TextInputLayout) {
         this.parentLayout = textInputLayout
+    }
+
+    fun isValid(): Boolean {
+        val input = text?.toString()
+        return !input.isNullOrEmpty() &&
+                android.util.Patterns.EMAIL_ADDRESS.matcher(input).matches()
     }
 }

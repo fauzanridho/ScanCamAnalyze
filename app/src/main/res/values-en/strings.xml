@@ -37,5 +37,6 @@
     <string name="pagi" translatable="false">Morning</string>
     <string name="malam" translatable="false">Evening</string>
     <string name="error_email">Email Incorrect Format</string>
-    <string name="error_password">Password must not be less than 8 characters</string>
+    <string name="error_password">Minimum 8 characters, At least 1 number.</string>
+
 </resources>

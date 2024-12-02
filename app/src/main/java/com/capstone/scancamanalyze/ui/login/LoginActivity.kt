@@ -103,13 +103,41 @@ class LoginActivity : AppCompatActivity() {
     private fun setupAction() {
         binding.loginButton.setOnClickListener {
             showLoading(true) // Tampilkan progress bar
+
+            // Validasi input
+            val isEmailValid = binding.emailEditText.isValid()
+            val isPasswordValid = binding.passwordEditText.isValid()
+
+            if (!isEmailValid) {
+                showLoading(false)
+                AlertDialog.Builder(this).apply {
+                    setTitle("Error")
+                    setMessage("Email tidak valid. Periksa format email Anda.")
+                    setPositiveButton("OK", null)
+                    create()
+                    show()
+                }
+                return@setOnClickListener
+            }
+
+            if (!isPasswordValid) {
+                showLoading(false)
+                AlertDialog.Builder(this).apply {
+                    setTitle("Error")
+                    setMessage(R.string.error_password)
+                    setPositiveButton("OK", null)
+                    create()
+                    show()
+                }
+                return@setOnClickListener
+            }
+
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
 
-            // Simulasi proses login
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 viewModel.saveSession(UserModel(email, "sample_token"))
-                showLoading(false) // Sembunyikan progress bar setelah selesai
+                showLoading(false)
                 AlertDialog.Builder(this).apply {
                     setTitle("Yeah!")
                     setMessage("Anda berhasil login.")
@@ -124,7 +152,7 @@ class LoginActivity : AppCompatActivity() {
                     show()
                 }
             } else {
-                showLoading(false) // Sembunyikan progress bar jika ada kesalahan
+                showLoading(false)
                 AlertDialog.Builder(this).apply {
                     setTitle("Error")
                     setMessage("Email atau password tidak boleh kosong.")
@@ -135,6 +163,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE

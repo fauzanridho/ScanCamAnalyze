@@ -22,7 +22,7 @@ class PasswordEditText @JvmOverloads constructor(
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val parentLayout = getParentTextInputLayout()
-                if (s != null && s.length < 8) {
+                if (s.isNullOrEmpty() || !isValidInput(s.toString())) {
                     parentLayout?.error = context.getString(R.string.error_password)
                 } else {
                     parentLayout?.error = null
@@ -42,5 +42,14 @@ class PasswordEditText @JvmOverloads constructor(
             parentView = parentView.parent
         }
         return null
+    }
+
+    private fun isValidInput(input: String): Boolean {
+        return input.length >= 8 && input.any { it.isDigit() }
+    }
+
+    fun isValid(): Boolean {
+        val input = text?.toString()
+        return !input.isNullOrEmpty() && isValidInput(input)
     }
 }
