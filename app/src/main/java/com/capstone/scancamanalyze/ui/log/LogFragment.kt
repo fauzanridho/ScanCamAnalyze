@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.scancamanalyze.adapter.SkinAdapter
-import com.capstone.scancamanalyze.adapter.SkinItem
+import com.capstone.scancamanalyze.data.SkinItem
 import com.capstone.scancamanalyze.databinding.FragmentLogBinding
 
 class LogFragment : Fragment() {

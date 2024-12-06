@@ -4,8 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import com.capstone.scancamanalyze.R
 import com.capstone.scancamanalyze.adapter.ProductAdapter
+import com.capstone.scancamanalyze.data.allProducts
+import com.capstone.scancamanalyze.data.api.ProductItem
+import com.capstone.scancamanalyze.data.pelembab
+import com.capstone.scancamanalyze.data.sabunCuciMuka
+import com.capstone.scancamanalyze.data.serum
+import com.capstone.scancamanalyze.data.sunscreen
+import com.capstone.scancamanalyze.data.toner
 import com.capstone.scancamanalyze.databinding.ActivityProductBinding
 import com.capstone.scancamanalyze.ui.detail.product.DetailProduct
 
@@ -21,13 +27,20 @@ class ProductActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 //         Mendapatkan nama kategori product dari Intent
-        val productName = intent.getStringExtra("PRODUCT_NAME") ?: "Product"
-
+        val productName = intent.getStringExtra("CATEGORY_NAME") ?: "Product"
 //         Menampilkan nama kategori di bagian judul
+        val products = when (productName) {
+            "Pelembab" -> pelembab
+            "Toner" -> toner
+            "Sunscreen" -> sunscreen
+            "Serum" -> serum
+            "Sabun Cuci Muka" -> sabunCuciMuka
+            else -> allProducts // Default ke semua produk jika kategori tidak dikenali
+        }
         binding.tvCategoryTitle.text = productName
 
         // Setup RecyclerView
-        setupRecyclerView()
+        setupRecyclerView(products)
 
         // Tombol kembali
         binding.btnBack.setOnClickListener {
@@ -35,29 +48,20 @@ class ProductActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupRecyclerView() {
+    private fun setupRecyclerView(products: List<ProductItem>) {
 
-        val allProducts = listOf(
-            Product("Facewash A", "Brand X", "Deskripsi facewash", "Rp 50.000", R.drawable.sabuncucimuka),
-            Product("Facewash B", "Brand Y", "Deskripsi facewash", "Rp 60.000", R.drawable.sabuncucimuka),
-            Product("Toner A", "Brand Z", "Deskripsi toner", "Rp 70.000", R.drawable.toner),
-            Product("Serum A", "Brand W", "Deskripsi serum", "Rp 80.000", R.drawable.serum),
-            Product("Sunscreen A", "Brand V", "Deskripsi sunscreen", "Rp 90.000", R.drawable.sunscreen)
-        )
-
-        productAdapter = ProductAdapter(allProducts) { product ->
+        productAdapter = ProductAdapter(products) { product ->
             val intent = Intent(this, DetailProduct::class.java).apply {
-                putExtra("EXTRA_PRODUCT_NAME", product.name)
-                putExtra("EXTRA_PRODUCT_BRAND", product.brand)
-                putExtra("EXTRA_PRODUCT_DESCRIPTION", product.description)
-                putExtra("EXTRA_PRODUCT_PRICE", product.price)
-                putExtra("EXTRA_PRODUCT_IMAGE", product.imageResId)
+                putExtra("EXTRA_PRODUCT_NAME", product.nama)
+                putExtra("EXTRA_PRODUCT_DETAIL", product.detail)
+                putExtra("EXTRA_PRODUCT_IMAGE", product.image)
+                putExtra("EXTRA_PRODUCT_KATEGORI", product.kategori)
             }
             startActivity(intent)
         }
         binding.rvProducts.layoutManager = GridLayoutManager(this, 2)
         binding.rvProducts.adapter = productAdapter
+
+        supportActionBar?.hide()
     }
-
-
 }

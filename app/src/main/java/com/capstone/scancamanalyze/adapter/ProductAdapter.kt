@@ -5,24 +5,24 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.capstone.scancamanalyze.data.api.ProductItem
+
 import com.capstone.scancamanalyze.databinding.ItemProductBinding
-import com.capstone.scancamanalyze.ui.home.product.Product
 import com.capstone.scancamanalyze.ui.detail.product.DetailProduct
 
-class ProductAdapter(private var products: List<Product>,private val onClick: (Product) -> Unit) :
+class ProductAdapter(private var products: List<ProductItem>, private val onClick: (ProductItem) -> Unit) :
     RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     class ProductViewHolder(private val binding: ItemProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(product: Product, onClick: (Product) -> Unit) {
-            binding.tvProductName.text = product.name
-            binding.tvProductBrand.text = product.brand
-            binding.tvProductDescription.text = product.description
-            binding.tvProductPrice.text = product.price
-            binding.ivProductImage.setImageResource(product.imageResId)
+        fun bind(product: ProductItem, onClick: (ProductItem) -> Unit) {
+            binding.tvProductName.text = product.nama
+            binding.tvProductDescription.text = product.detail
+            binding.tvKategori.text = product.kategori // Placeholder harga, sesuaikan jika ada field harga
 
+            // Gunakan Glide untuk memuat gambar dari URL
             Glide.with(binding.root.context)
-                .load(product.imageResId)
+                .load(product.image) // URL gambar dari field `image` di TonerItem
                 .into(binding.ivProductImage)
 
             binding.root.setOnClickListener {
@@ -40,21 +40,18 @@ class ProductAdapter(private var products: List<Product>,private val onClick: (P
         val product = products[position]
         holder.bind(product) {
             val intent = Intent(holder.itemView.context, DetailProduct::class.java)
-            intent.putExtra("EXTRA_PRODUCT_NAME", product.name)
-            intent.putExtra("EXTRA_PRODUCT_BRAND", product.brand)
-            intent.putExtra("EXTRA_PRODUCT_DESCRIPTION", product.description)
-            intent.putExtra("EXTRA_PRODUCT_PRICE", product.price)
-            intent.putExtra("EXTRA_PRODUCT_IMAGE", product.imageResId)
+            intent.putExtra("EXTRA_PRODUCT_NAME", product.nama)
+            intent.putExtra("EXTRA_PRODUCT_DETAIL", product.detail)
+            intent.putExtra("EXTRA_PRODUCT_IMAGE", product.image)
+            intent.putExtra("EXTRA_PRODUCT_KATEGORI", product.kategori)
             holder.itemView.context.startActivity(intent)
         }
     }
 
-
     override fun getItemCount() = products.size
 
-    fun updateData(newProducts: List<Product>) {
+    fun updateData(newProducts: List<ProductItem>) {
         products = newProducts
         notifyDataSetChanged()
-
     }
 }

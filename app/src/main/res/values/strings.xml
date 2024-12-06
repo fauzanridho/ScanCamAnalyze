@@ -38,5 +38,6 @@
     <string name="malam">Malam Hari</string>
     <string name="error_email">Format email tidak valid</string>
     <string name="error_password">Minimal 8 karakter, Setidaknya 1 angka.</string>
+    <string name="category_item">Category Item</string>
 
 </resources>

@@ -7,8 +7,6 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.capstone.scancamanalyze.data.pref.UserModel
 import com.capstone.scancamanalyze.data.UserRepository
-import com.capstone.scancamanalyze.data.api.ApiConfig
-import com.capstone.scancamanalyze.data.api.EventResponse
 import com.capstone.scancamanalyze.data.local.AnalyzeEntity
 import kotlinx.coroutines.launch
 

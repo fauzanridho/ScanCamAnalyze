@@ -28,7 +28,6 @@ class CameraFragment : Fragment() {
     private var _binding: FragmentCameraBinding? = null
     private val binding get() = _binding!!
 
-    private var imageUri: Uri? = null
     private lateinit var imageClassifierHelper: ImageClassifierHelper
 
     private val viewModel by viewModels<CameraViewModel> {
@@ -84,7 +83,7 @@ class CameraFragment : Fragment() {
     private fun setupClassifier() {
         imageClassifierHelper = ImageClassifierHelper(
             threshold = 0.5f,
-            maxResults = 2,
+            maxResults = 4,
             context = requireContext(),
             classifierListener = object : ImageClassifierHelper.ClassifierListener {
                 override fun onError(error: String) {
@@ -153,7 +152,7 @@ class CameraFragment : Fragment() {
 
         // Simpan hasil ke ViewModel
         viewModel.imageUri.value?.let { uri ->
-            viewModel.saveAnalyzeData(uri, level.toInt(), predictionResult)
+            viewModel.saveAnalyzeData(uri, level.toInt(), predictionResult.toString())
         } ?: Log.e("CameraFragment", "No imageUri available for saving results")
     }
 

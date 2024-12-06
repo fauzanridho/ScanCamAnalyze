@@ -7,8 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.scancamanalyze.R
+import com.capstone.scancamanalyze.data.SkinItem
 
-data class SkinItem(val imageResId: Int, val title: String, val description: String)
 
 class SkinAdapter(
     private val items: List<SkinItem>,

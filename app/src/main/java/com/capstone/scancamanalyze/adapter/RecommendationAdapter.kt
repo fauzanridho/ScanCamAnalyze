@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.capstone.scancamanalyze.data.Product
 import com.capstone.scancamanalyze.databinding.ItemProductBinding
-import com.capstone.scancamanalyze.ui.home.product.Product
 
 class RecommendationAdapter(
     private var productList: List<Product>
@@ -14,9 +14,8 @@ class RecommendationAdapter(
     class ViewHolder(private val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
             binding.tvProductName.text = product.name
-            binding.tvProductBrand.text = product.brand
             binding.tvProductDescription.text = product.description
-            binding.tvProductPrice.text = product.price
+            binding.tvKategori.text = product.price
 
             Glide.with(binding.root.context)
                 .load(product.imageResId)

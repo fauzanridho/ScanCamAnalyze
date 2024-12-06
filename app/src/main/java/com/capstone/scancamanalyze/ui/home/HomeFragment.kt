@@ -12,6 +12,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.scancamanalyze.ViewModelFactory
 import com.capstone.scancamanalyze.adapter.AnalyzeAdapter
+import com.capstone.scancamanalyze.adapter.CategoryAdapter
+import com.capstone.scancamanalyze.data.Category
+import com.capstone.scancamanalyze.data.categories
 import com.capstone.scancamanalyze.databinding.FragmentHomeBinding
 import com.capstone.scancamanalyze.ui.detail.analyze.DetailAnalyzeActivity
 import com.capstone.scancamanalyze.ui.home.malamhari.MalamHariActivity
@@ -28,6 +31,7 @@ class HomeFragment : Fragment() {
     }
     private val binding get() = _binding!!
     private lateinit var analyzeAdapter: AnalyzeAdapter
+    private lateinit var categoryAdapter: CategoryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,10 +53,7 @@ class HomeFragment : Fragment() {
                 Toast.makeText(requireContext(), "No analyze data found", Toast.LENGTH_SHORT).show()
             }
         }
-        binding.containerProducts.setOnClickListener{
-            val intent = Intent(requireContext(), ProductActivity::class.java)
-            startActivity(intent)
-        }
+
         binding.morningRoutineCardView.setOnClickListener {
             val intent = Intent(requireContext(), PagiHariActivity::class.java)
             startActivity(intent)
@@ -80,8 +81,16 @@ class HomeFragment : Fragment() {
             val analyze = analyzeAdapter.analyzeList[position]
             navigateToDetailAnalyzeActivity(analyze.id, position) // Pass position
         }
+        categoryAdapter = CategoryAdapter(categories) { category ->
+            // Handle klik kategori
+            navigateToProductActivity(category)
+        }
         binding.rvArticle.layoutManager = LinearLayoutManager(requireContext())
         binding.rvArticle.adapter = analyzeAdapter
+
+        binding.rvCategory.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvCategory.adapter = categoryAdapter
     }
 
     private fun navigateToDetailAnalyzeActivity(analyzeId: Int, position: Int) {
@@ -91,6 +100,12 @@ class HomeFragment : Fragment() {
             putExtra("LEVEL", analyzeAdapter.analyzeList[position].level)
             putExtra("PREDICTION_RESULT", analyzeAdapter.analyzeList[position].predictionResult)
         }
+        startActivity(intent)
+    }
+
+    private fun navigateToProductActivity(category: Category) {
+        val intent = Intent(requireContext(), ProductActivity::class.java)
+        intent.putExtra("CATEGORY_NAME", category.name)
         startActivity(intent)
     }
 

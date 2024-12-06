@@ -14,12 +14,12 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
 class ImageClassifierHelper(
-    var threshold: Float = 0.1f,
+    var threshold: Float = 0.5f, // Perbaiki threshold agar lebih realistis banget
     var maxResults: Int = 3,
     val context: Context,
     val classifierListener: ClassifierListener?
 ) {
-    private var model: SkinCamAnalyzeModel? = null
+    private var model: ModelGabungan? = null
 
     init {
         setupModel()
@@ -27,7 +27,7 @@ class ImageClassifierHelper(
 
     private fun setupModel() {
         try {
-            model = SkinCamAnalyzeModel.newInstance(context)
+            model = ModelGabungan.newInstance(context)
         } catch (e: IOException) {
             e.printStackTrace()
             classifierListener?.onError("Failed to load model: ${e.localizedMessage}")
@@ -36,8 +36,6 @@ class ImageClassifierHelper(
 
     fun classifyStaticImage(imageUri: Uri) {
         val contentResolver = context.contentResolver
-
-        // Memuat gambar dari URI
         val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             val source = ImageDecoder.createSource(contentResolver, imageUri)
             ImageDecoder.decodeBitmap(source)
@@ -45,35 +43,27 @@ class ImageClassifierHelper(
             MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
         }
 
-        // Pastikan bitmap dalam konfigurasi yang dapat diakses
         val accessibleBitmap = if (bitmap.config == Bitmap.Config.HARDWARE) {
             bitmap.copy(Bitmap.Config.ARGB_8888, true)
         } else {
             bitmap
         }
 
-        // Resize gambar ke dimensi yang sesuai (224x224)
-        val resizedBitmap = Bitmap.createScaledBitmap(accessibleBitmap, 224, 224, true)
+        // Resize gambar ke ukuran yang diharapkan model
+        val resizedBitmap = Bitmap.createScaledBitmap(accessibleBitmap, 250, 250, true)
 
-        // Log untuk memverifikasi hasil gambar yang di-resize
-        Log.d("ImageClassifier", "Resized Bitmap: ${resizedBitmap.width}x${resizedBitmap.height}")
-
-        // Konversi gambar menjadi buffer untuk input model
-        val inputFeature = TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
+        // Konversi bitmap ke ByteBuffer
+        val inputFeature = TensorBuffer.createFixedSize(intArrayOf(1, 250, 250, 3), DataType.FLOAT32)
         inputFeature.loadBuffer(convertBitmapToByteBuffer(resizedBitmap))
 
-        // Log untuk memverifikasi input tensor
-        Log.d("ImageClassifier", "Input Tensor: ${inputFeature.buffer.asFloatBuffer()}")
-
-        // Menjalankan inferensi
+        // Inferensi dengan model
         val outputs = model?.process(inputFeature)
         val outputBuffer = outputs?.outputFeature0AsTensorBuffer
 
-        // Log untuk memeriksa hasil output dari model
+        // Log hasil inferensi untuk debugging
         Log.d("ImageClassifier", "Output Tensor: ${outputBuffer?.floatArray?.joinToString(", ")}")
 
-
-        // Menafsirkan hasil
+        // Interpretasi hasil
         outputBuffer?.let {
             val results = parseResults(it)
             classifierListener?.onResults(results)
@@ -81,39 +71,40 @@ class ImageClassifierHelper(
     }
 
     private fun convertBitmapToByteBuffer(bitmap: Bitmap): ByteBuffer {
-        val byteBuffer = ByteBuffer.allocateDirect(4 * 224 * 224 * 3)
-        byteBuffer.order(ByteOrder.nativeOrder())
-        val pixels = IntArray(224 * 224)
-        bitmap.getPixels(pixels, 0, 224, 0, 0, 224, 224)
-        for (pixel in pixels) {
-            val r = (pixel shr 16 and 0xFF) / 255.0f
-            val g = (pixel shr 8 and 0xFF) / 255.0f
-            val b = (pixel and 0xFF) / 255.0f
-            byteBuffer.putFloat(r)
-            byteBuffer.putFloat(g)
-            byteBuffer.putFloat(b)
+        val buffer: ByteBuffer = ByteBuffer.allocateDirect(4 * 250 * 250 * 3)
+        buffer.order(ByteOrder.nativeOrder())
+
+        val intValues = IntArray(250 * 250)
+        bitmap.getPixels(intValues, 0, bitmap.width, 0, 0, bitmap.width, bitmap.height)
+
+        for (pixel in intValues) {
+            // Pastikan normalisasi sesuai dengan model
+            val r = (pixel shr 16 and 0xFF).toFloat() / 255.0f
+            val g = (pixel shr 8 and 0xFF).toFloat() / 255.0f
+            val b = (pixel and 0xFF).toFloat() / 255.0f
+
+            buffer.putFloat(r)
+            buffer.putFloat(g)
+            buffer.putFloat(b)
         }
-        return byteBuffer
+
+        return buffer
     }
 
     private fun parseResults(outputBuffer: TensorBuffer): MutableList<Classifications> {
-        val labels = listOf("Wajah Mulus", "Jerawat", "Flek Hitam", "Komedo") // Sesuaikan dengan kategori model
+        val labels = listOf("Wajah Mulus", "Jerawat", "Flek Hitam", "Komedo")
         val outputArray = outputBuffer.floatArray
         val results = mutableListOf<Classifications>()
 
         outputArray.forEachIndexed { index, score ->
             if (score >= threshold) {
-                results.add(Classifications(labels[index], score))
+                val classification = Classifications(labels[index], score)
+                results.add(classification)
             }
         }
 
-        // Log untuk memeriksa hasil prediksi
-        Log.d("ImageClassifier", "Output Tensor: ${outputBuffer.floatArray.joinToString(", ")}")
-        Log.d("ImageClassifier", "Results: ${results.joinToString(", ") { "${it.label}: ${it.score}" }}")
-
-        return results
+        return results.sortedByDescending { it.score }.toMutableList()
     }
-
 
     fun close() {
         model?.close()
@@ -129,4 +120,3 @@ class ImageClassifierHelper(
         val score: Float
     )
 }
-

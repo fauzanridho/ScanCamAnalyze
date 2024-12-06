@@ -1,33 +1,50 @@
 package com.capstone.scancamanalyze.ui.home.pagihari
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.scancamanalyze.R
+import com.capstone.scancamanalyze.adapter.ProductAdapter
 import com.capstone.scancamanalyze.adapter.RecommendationAdapter
+import com.capstone.scancamanalyze.data.Product
+import com.capstone.scancamanalyze.data.allProducts
 import com.capstone.scancamanalyze.databinding.ActivityLoginBinding
+import com.capstone.scancamanalyze.databinding.ActivityMalamHariBinding
 import com.capstone.scancamanalyze.databinding.ActivityPagiHariBinding
-import com.capstone.scancamanalyze.ui.home.product.Product
+import com.capstone.scancamanalyze.ui.detail.product.DetailProduct
+
 
 class PagiHariActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPagiHariBinding
-    private lateinit var adapter: RecommendationAdapter
+    private lateinit var adapter: ProductAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPagiHariBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_pagi_hari)
+        setContentView(binding.root)
 
-        val products = listOf(
-            Product("Cleanser Malam", "Brand X", "Membersihkan wajah sebelum tidur", "Rp 60.000", R.drawable.sabuncucimuka),
-            Product("Night Cream", "Brand Y", "Perawatan wajah pagi hari", "Rp 150.000", R.drawable.serum)
-        )
-        adapter = RecommendationAdapter(products)
-        binding.recyclerViewRecommendations.layoutManager = LinearLayoutManager(this)
+
+        // Memfilter produk yang kategori-nya "pagi & malam"
+        val filteredProducts = allProducts.filter { it.kategori == "pagi & malam" || it.kategori == "pagi" }
+
+        adapter = ProductAdapter(filteredProducts) { product ->
+            val intent = Intent(this, DetailProduct::class.java).apply {
+                putExtra("EXTRA_PRODUCT_NAME", product.nama)
+                putExtra("EXTRA_PRODUCT_DETAIL", product.detail)
+                putExtra("EXTRA_PRODUCT_IMAGE", product.image)
+                putExtra("EXTRA_PRODUCT_KATEGORI", product.kategori)
+            }
+            startActivity(intent)
+        }
+        binding.recyclerViewRecommendations.layoutManager = GridLayoutManager(this, 2)
         binding.recyclerViewRecommendations.adapter = adapter
+
+        supportActionBar?.hide()
     }
 }

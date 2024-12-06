@@ -2,11 +2,8 @@ package com.capstone.scancamanalyze.ui.detail.product
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.capstone.scancamanalyze.databinding.ActivityDetailProductBinding
-import com.capstone.scancamanalyze.ui.profile.DataStoreManager
-import kotlinx.coroutines.launch
 
 class DetailProduct : AppCompatActivity() {
 
@@ -19,17 +16,21 @@ class DetailProduct : AppCompatActivity() {
 
         // Mendapatkan data dari intent
         val productName = intent.getStringExtra("EXTRA_PRODUCT_NAME")
-        val productBrand = intent.getStringExtra("EXTRA_PRODUCT_BRAND")
-        val productDescription = intent.getStringExtra("EXTRA_PRODUCT_DESCRIPTION")
-        val productPrice = intent.getStringExtra("EXTRA_PRODUCT_PRICE")
-        val productImage = intent.getIntExtra("EXTRA_PRODUCT_IMAGE", 0)
+        val productDetail = intent.getStringExtra("EXTRA_PRODUCT_DETAIL")
+        val productImage = intent.getStringExtra("EXTRA_PRODUCT_IMAGE")
+        val productKategori = intent.getStringExtra("EXTRA_PRODUCT_KATEGORI")
 
-        //menampilkan data di layout
+        // Menampilkan data di layout
         binding.tvProductName.text = productName
-        binding.tvProductBrand.text = productBrand
-        binding.tvProductDetails.text = productDescription
-        binding.tvProductPrice.text = productPrice
-        binding.ivProductImage.setImageResource(productImage)
-        getSupportActionBar()?.hide()
+        binding.tvProductDetails.text = productDetail
+        binding.tvProductPrice.text = productKategori
+
+        // Menggunakan Glide untuk memuat gambar dari URL
+        Glide.with(this)
+            .load(productImage) // Memuat gambar dari URL
+            .into(binding.ivProductImage)
+
+        // Menyembunyikan Action Bar
+        supportActionBar?.hide()
     }
 }

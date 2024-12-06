@@ -4,7 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.capstone.scancamanalyze.R
-import com.capstone.scancamanalyze.adapter.SkinItem
+
+import com.capstone.scancamanalyze.data.SkinItem
 
 class LogViewModel : ViewModel() {
 
