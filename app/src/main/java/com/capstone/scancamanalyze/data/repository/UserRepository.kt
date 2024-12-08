@@ -1,10 +1,12 @@
-package com.capstone.scancamanalyze.data
+package com.capstone.scancamanalyze.data.repository
 
 import com.capstone.scancamanalyze.data.api.ApiConfig
 import com.capstone.scancamanalyze.data.local.AnalyzeDao
 import com.capstone.scancamanalyze.data.local.AnalyzeEntity
 import com.capstone.scancamanalyze.data.pref.UserModel
 import com.capstone.scancamanalyze.data.pref.UserPreference
+import com.capstone.scancamanalyze.data.request.LoginRequest
+import com.capstone.scancamanalyze.data.request.RegisterRequest
 import kotlinx.coroutines.flow.Flow
 
 class UserRepository private constructor(
@@ -12,6 +14,16 @@ class UserRepository private constructor(
     private val analyzeDao: AnalyzeDao
 ) {
     private val apiService = ApiConfig.getApiService()
+
+    suspend fun register(registerRequest: RegisterRequest) =
+        apiService.register(
+            registerRequest.name,
+            registerRequest.email,
+            registerRequest.password
+        )
+
+    suspend fun login(loginRequest: LoginRequest) =
+        apiService.logInUser(loginRequest.email, loginRequest.password)
 
     suspend fun saveSession(user: UserModel) {
         userPreference.saveSession(user)

@@ -5,11 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.capstone.scancamanalyze.di.Injection
 import com.capstone.scancamanalyze.ui.login.LoginViewModel
-import com.capstone.scancamanalyze.data.UserRepository
+import com.capstone.scancamanalyze.data.repository.UserRepository
 import com.capstone.scancamanalyze.ui.camera.CameraViewModel
 import com.capstone.scancamanalyze.ui.home.HomeViewModel
 import com.capstone.scancamanalyze.ui.profile.DataStoreManager
 import com.capstone.scancamanalyze.ui.profile.ProfileViewModel
+import com.capstone.scancamanalyze.ui.signup.SignUpViewModel
 
 class ViewModelFactory(private val repository: UserRepository, private val dataStoreManager: DataStoreManager) : ViewModelProvider.NewInstanceFactory() {
 
@@ -21,6 +22,9 @@ class ViewModelFactory(private val repository: UserRepository, private val dataS
             }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(SignUpViewModel::class.java) -> {
+                SignUpViewModel(repository) as T
             }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
                 ProfileViewModel(repository, dataStoreManager) as T

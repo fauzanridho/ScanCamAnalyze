@@ -8,7 +8,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.capstone.scancamanalyze.databinding.ActivityWelcomeBinding
 import com.capstone.scancamanalyze.ui.login.LoginActivity
-import com.capstone.scancamanalyze.ui.signup.SignupActivity
+import com.capstone.scancamanalyze.ui.signup.SignUpActivity
 
 class WelcomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWelcomeBinding
@@ -39,7 +39,7 @@ class WelcomeActivity : AppCompatActivity() {
         }
 
         binding.signupButton.setOnClickListener {
-            startActivity(Intent(this, SignupActivity::class.java))
+            startActivity(Intent(this, SignUpActivity::class.java))
         }
     }
 }

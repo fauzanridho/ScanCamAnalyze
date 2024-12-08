@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.capstone.scancamanalyze.data.UserRepository
+import com.capstone.scancamanalyze.data.repository.UserRepository
 import kotlinx.coroutines.launch
 
 class CameraViewModel(private val repository: UserRepository) : ViewModel() {
