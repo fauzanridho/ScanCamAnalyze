@@ -3,40 +3,30 @@ package com.capstone.scancamanalyze.ui.login
 import androidx.lifecycle.*
 import com.capstone.scancamanalyze.data.repository.UserRepository
 import com.capstone.scancamanalyze.data.pref.UserModel
+import com.capstone.scancamanalyze.data.pref.UserPreference
 import com.capstone.scancamanalyze.data.request.LoginRequest
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
-class LoginViewModel(private val userRepository: UserRepository) : ViewModel() {
+class LoginViewModel(private val userPreference: UserPreference) : ViewModel() {
 
     private val _session = MutableLiveData<UserModel>()
     val session: LiveData<UserModel> get() = _session
 
-    fun login(loginRequest: LoginRequest, onSuccess: () -> Unit, onError: (String) -> Unit) {
-        viewModelScope.launch {
-            try {
-                val response = userRepository.login(loginRequest)
-                if (response.token.isNullOrEmpty()) {
-                    response.message?.let { onError(it) }
-                    return@launch
+    fun login(email: String, password: String, onSuccess: () -> Unit, onError: (String) -> Unit) {
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    onSuccess()
+                } else {
+                    onError(task.exception?.localizedMessage ?: "Login failed")
                 }
-
-                val user = UserModel(
-                    email = loginRequest.email,
-                    token = response.token,
-                    isLogin = true
-                )
-                userRepository.saveSession(user)
-                _session.value = user
-                onSuccess()
-            } catch (e: Exception) {
-                onError(e.message ?: "An error occurred during login")
             }
-        }
     }
 
     fun saveSession(user: UserModel) {
         viewModelScope.launch {
-            userRepository.saveSession(user)
+            userPreference.saveSession(user)
         }
     }
 }

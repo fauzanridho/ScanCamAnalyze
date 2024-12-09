@@ -20,12 +20,6 @@ class ViewModelFactory(private val repository: UserRepository, private val dataS
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
                 HomeViewModel(repository) as T
             }
-            modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
-                LoginViewModel(repository) as T
-            }
-            modelClass.isAssignableFrom(SignUpViewModel::class.java) -> {
-                SignUpViewModel(repository) as T
-            }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
                 ProfileViewModel(repository, dataStoreManager) as T
             }

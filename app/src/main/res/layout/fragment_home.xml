@@ -21,16 +21,16 @@
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/poppins_medium"
             android:paddingHorizontal="4dp"
-            android:text="Welcome to scancam Analyze..."
+            android:text="@string/title_atas_sendiri"
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/tvHallo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/poppins_bold"
             android:paddingHorizontal="4dp"
-            android:text="Halo"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -40,7 +40,7 @@
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/poppins_medium"
             android:paddingHorizontal="4dp"
-            android:text="Lakukan Rutin Kamu dengan beraktivitas supaya kulit tetap sehat"
+            android:text="@string/title_atas"
             android:textSize="14sp" />
 
         <!-- Morning and Night Routines Section -->
@@ -128,7 +128,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="Rekomendasi produk perawatan Muka"
+            android:text="@string/rekomendasi_produk"
             android:textSize="16sp"
             android:textStyle="bold" />
 

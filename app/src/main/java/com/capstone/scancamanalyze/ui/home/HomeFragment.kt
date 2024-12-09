@@ -15,6 +15,8 @@ import com.capstone.scancamanalyze.adapter.AnalyzeAdapter
 import com.capstone.scancamanalyze.adapter.CategoryAdapter
 import com.capstone.scancamanalyze.data.Category
 import com.capstone.scancamanalyze.data.categories
+import com.capstone.scancamanalyze.data.pref.UserPreference
+import com.capstone.scancamanalyze.data.pref.dataStore
 import com.capstone.scancamanalyze.databinding.FragmentHomeBinding
 import com.capstone.scancamanalyze.ui.detail.analyze.DetailAnalyzeActivity
 import com.capstone.scancamanalyze.ui.home.malamhari.MalamHariActivity
@@ -30,6 +32,7 @@ class HomeFragment : Fragment() {
         ViewModelFactory.getInstance(requireContext())
     }
     private val binding get() = _binding!!
+    private lateinit var userPreference: UserPreference
     private lateinit var analyzeAdapter: AnalyzeAdapter
     private lateinit var categoryAdapter: CategoryAdapter
 
@@ -41,8 +44,21 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        userPreference = UserPreference.getInstance(requireContext().dataStore)
+
+
         setupRecyclerView()
         viewModel.fetchAnalyzeHistory()
+
+        viewModel.getSession().observe(viewLifecycleOwner) { user ->
+            if (!user.isLogin) {
+                val intent = Intent(requireContext(), WelcomeActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
+            }else{
+                binding.tvHallo.text = "Hallo, ${user.email}"
+            }
+        }
 
         viewModel.analyzeList.observe(viewLifecycleOwner) { analyzeData ->
             Log.d("HomeFragment", "Analyze data received: $analyzeData")

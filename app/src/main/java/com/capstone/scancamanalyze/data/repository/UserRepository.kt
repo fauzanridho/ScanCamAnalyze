@@ -1,39 +1,26 @@
 package com.capstone.scancamanalyze.data.repository
 
-import com.capstone.scancamanalyze.data.api.ApiConfig
 import com.capstone.scancamanalyze.data.local.AnalyzeDao
 import com.capstone.scancamanalyze.data.local.AnalyzeEntity
 import com.capstone.scancamanalyze.data.pref.UserModel
 import com.capstone.scancamanalyze.data.pref.UserPreference
-import com.capstone.scancamanalyze.data.request.LoginRequest
-import com.capstone.scancamanalyze.data.request.RegisterRequest
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import kotlinx.coroutines.flow.Flow
 
 class UserRepository private constructor(
     private val userPreference: UserPreference,
     private val analyzeDao: AnalyzeDao
 ) {
-    private val apiService = ApiConfig.getApiService()
-
-    suspend fun register(registerRequest: RegisterRequest) =
-        apiService.register(
-            registerRequest.name,
-            registerRequest.email,
-            registerRequest.password
-        )
-
-    suspend fun login(loginRequest: LoginRequest) =
-        apiService.logInUser(loginRequest.email, loginRequest.password)
-
-    suspend fun saveSession(user: UserModel) {
-        userPreference.saveSession(user)
-    }
+    private val auth: FirebaseAuth = Firebase.auth
 
     fun getSession(): Flow<UserModel> {
         return userPreference.getSession()
     }
 
     suspend fun logout() {
+        auth.signOut()
         userPreference.logout()
     }
 

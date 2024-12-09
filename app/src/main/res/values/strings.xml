@@ -38,6 +38,9 @@
     <string name="malam">Malam Hari</string>
     <string name="error_email">Format email tidak valid</string>
     <string name="error_password">Minimal 8 karakter, Setidaknya 1 angka.</string>
-    <string name="category_item">Category Item</string>
+    <string name="category_item">Kategori Item</string>
+    <string name="title_atas">Lakukan Rutin Kamu dengan beraktivitas supaya kulit tetap sehat</string>
+    <string name="title_atas_sendiri">Selamat datang di Aplikasi...</string>
+    <string name="rekomendasi_produk">Rekomendasi produk perawatan Muka</string>
 
 </resources>

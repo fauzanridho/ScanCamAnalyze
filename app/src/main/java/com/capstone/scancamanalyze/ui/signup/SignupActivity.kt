@@ -9,27 +9,27 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.animation.DecelerateInterpolator
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.capstone.scancamanalyze.R
-import com.capstone.scancamanalyze.ViewModelFactory
-import com.capstone.scancamanalyze.data.request.RegisterRequest
 import com.capstone.scancamanalyze.databinding.ActivitySignupBinding
 import com.capstone.scancamanalyze.edittext.EmailEditText
 import com.capstone.scancamanalyze.ui.login.LoginActivity
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 
 class SignUpActivity : AppCompatActivity() {
-    private val viewModel: SignUpViewModel by viewModels {
-        ViewModelFactory.getInstance(this)
-    }
     private lateinit var binding: ActivitySignupBinding
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        auth = Firebase.auth
 
         val emailEditText = findViewById<EmailEditText>(R.id.emailEditText)
         val emailEditTextLayout = findViewById<TextInputLayout>(R.id.emailEditTextLayout)
@@ -94,40 +94,40 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun setupAction() {
         binding.registerButton.setOnClickListener {
-            val name = binding.nameEditText.text.toString()
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
 
-            if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
+            if (email.isNotEmpty() && password.isNotEmpty()) {
                 showLoading(true)
-                val request = RegisterRequest(name, email, password)
-                viewModel.register(request, {
-                    showLoading(false)
-                    AlertDialog.Builder(this).apply {
-                        setTitle("Yeah!")
-                        setMessage("Akun dengan $email sudah jadi nih. Yuk, login dan belajar coding.")
-                        setPositiveButton("Lanjut") { _, _ ->
-                            val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
-                            startActivity(intent)
-                            finish() // Optional: Finish SignUpActivity after successful registration
+                auth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        showLoading(false)
+                        if (task.isSuccessful) {
+                            AlertDialog.Builder(this).apply {
+                                setTitle("Registrasi Berhasil")
+                                setMessage("Akun berhasil dibuat. Silakan login.")
+                                setPositiveButton("OK") { _, _ ->
+                                    val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                                create()
+                                show()
+                            }
+                        } else {
+                            AlertDialog.Builder(this).apply {
+                                setTitle("Registrasi Gagal")
+                                setMessage(task.exception?.localizedMessage ?: "Terjadi kesalahan")
+                                setPositiveButton("OK", null)
+                                create()
+                                show()
+                            }
                         }
-                        create()
-                        show()
                     }
-                }, { errorMessage ->
-                    showLoading(false)
-                    AlertDialog.Builder(this).apply {
-                        setTitle("Oops!") // Changed title to "Oops!"
-                        setMessage(errorMessage)
-                        setPositiveButton("OK", null)
-                        create()
-                        show()
-                    }
-                })
             } else {
                 AlertDialog.Builder(this).apply {
                     setTitle("Error")
-                    setMessage("Semua field harus diisi.")
+                    setMessage("Email dan password harus diisi")
                     setPositiveButton("OK", null)
                     create()
                     show()

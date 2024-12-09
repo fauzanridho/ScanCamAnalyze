@@ -38,5 +38,9 @@
     <string name="malam" translatable="false">Evening</string>
     <string name="error_email">Email Incorrect Format</string>
     <string name="error_password">Minimum 8 characters, At least 1 number.</string>
+    <string name="category_item">Item Category</string>
+    <string name="title_atas">Do Your Routine by being active so that your skin stays healthy</string>
+    <string name="title_atas_sendiri">Welcome to the Application...</string>
+    <string name="rekomendasi_produk">Recommendations for facial care products</string>
 
 </resources>
