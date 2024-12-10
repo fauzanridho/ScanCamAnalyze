@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.capstone.scancamanalyze" />
+                  <option name="mobileSdkAppId" value="1:36262004341:android:d40e49a0135de4a5031a3c" />
+                  <option name="projectId" value="scan-cam-analyze" />
+                  <option name="projectNumber" value="36262004341" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

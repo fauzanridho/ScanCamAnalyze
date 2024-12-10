@@ -1,6 +1,5 @@
 package com.capstone.scancamanalyze.data.api
 
-import com.capstone.scancamanalyze.data.Product
 import com.google.gson.annotations.SerializedName
 
 data class LoginResponse(
@@ -43,4 +42,19 @@ data class ProductItem(
 
     @field:SerializedName("detail")
     val detail: String? = null
+)
+
+data class Avatar(
+
+    @field:SerializedName("Avatar")
+    val avatar: List<AvatarItem?>? = null
+)
+
+data class AvatarItem(
+
+    @field:SerializedName("image")
+    val image: String? = null,
+
+    @field:SerializedName("id")
+    val id: Int? = null
 )

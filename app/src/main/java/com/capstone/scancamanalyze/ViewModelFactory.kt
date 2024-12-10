@@ -3,14 +3,12 @@ package com.capstone.scancamanalyze
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.capstone.scancamanalyze.di.Injection
-import com.capstone.scancamanalyze.ui.login.LoginViewModel
 import com.capstone.scancamanalyze.data.repository.UserRepository
+import com.capstone.scancamanalyze.di.Injection
 import com.capstone.scancamanalyze.ui.camera.CameraViewModel
 import com.capstone.scancamanalyze.ui.home.HomeViewModel
 import com.capstone.scancamanalyze.ui.profile.DataStoreManager
 import com.capstone.scancamanalyze.ui.profile.ProfileViewModel
-import com.capstone.scancamanalyze.ui.signup.SignUpViewModel
 
 class ViewModelFactory(private val repository: UserRepository, private val dataStoreManager: DataStoreManager) : ViewModelProvider.NewInstanceFactory() {
 

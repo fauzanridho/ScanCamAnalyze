@@ -2,19 +2,10 @@ package com.capstone.scancamanalyze.ui.home.pagihari
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.capstone.scancamanalyze.R
 import com.capstone.scancamanalyze.adapter.ProductAdapter
-import com.capstone.scancamanalyze.adapter.RecommendationAdapter
-import com.capstone.scancamanalyze.data.Product
 import com.capstone.scancamanalyze.data.allProducts
-import com.capstone.scancamanalyze.databinding.ActivityLoginBinding
-import com.capstone.scancamanalyze.databinding.ActivityMalamHariBinding
 import com.capstone.scancamanalyze.databinding.ActivityPagiHariBinding
 import com.capstone.scancamanalyze.ui.detail.product.DetailProduct
 
