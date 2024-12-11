@@ -5,33 +5,24 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.signup.SignupActivity">
-
-    <ImageView
-        android:id="@+id/logoImageView"
-        android:layout_width="377dp"
-        android:layout_height="202dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="@string/image_auth"
-        android:scaleType="fitCenter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
-
+    tools:context=".ui.signup.SignUpActivity">
 
     <TextView
         android:id="@+id/registerTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="140dp"
+        android:alpha="0"
+        android:fontFamily="@font/poppins_bold"
         android:text="@string/title_signup"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logoImageView"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:alpha="100"
+        tools:ignore="MissingConstraints" />
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -40,16 +31,19 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginTop="16dp"
+        android:alpha="0"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/registerTitleTextView">
+        app:layout_constraintTop_toBottomOf="@id/registerTitleTextView"
+        tools:alpha="100">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nameEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="65dp"
             android:hint="@string/name"
             android:inputType="textPersonName"
             tools:ignore="SpeakableTextPresentCheck" />
@@ -63,18 +57,21 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="15dp"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nameEditTextLayout">
+        app:layout_constraintTop_toBottomOf="@id/nameEditTextLayout"
+        android:alpha="0"
+        tools:alpha="100">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.capstone.scancamanalyze.edittext.EmailEditText
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="65dp"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -86,17 +83,21 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginTop="8dp"
+        app:errorEnabled="true"
+        app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/emailEditTextLayout">
+        app:layout_constraintTop_toBottomOf="@id/emailEditTextLayout"
+        android:alpha="0"
+        tools:alpha="100">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/emailPasswordEditTextLayout"
+        <com.capstone.scancamanalyze.edittext.PasswordEditText
+            android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="65dp"
             android:hint="@string/password"
             android:inputType="textEmailAddress"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,16 +105,19 @@
     <Button
         android:id="@+id/registerButton"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
+        android:alpha="0"
         android:backgroundTint="@color/colorPrimary"
+        android:fontFamily="@font/poppins_medium"
         android:text="@string/register"
         android:textAllCaps="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/passwordEditTextLayout" />
+        app:layout_constraintTop_toBottomOf="@id/passwordEditTextLayout"
+        tools:alpha="100" />
 
     <ProgressBar
         android:id="@+id/progressBar"

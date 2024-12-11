@@ -15,8 +15,8 @@
 
         <ImageView
             android:id="@+id/image_result"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

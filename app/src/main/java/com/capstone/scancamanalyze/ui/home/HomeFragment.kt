@@ -11,10 +11,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.scancamanalyze.ViewModelFactory
+import com.capstone.scancamanalyze.adapter.AnalyzeAdapter
+import com.capstone.scancamanalyze.adapter.CategoryAdapter
+import com.capstone.scancamanalyze.data.Category
+import com.capstone.scancamanalyze.data.categories
+import com.capstone.scancamanalyze.data.pref.UserPreference
+import com.capstone.scancamanalyze.data.pref.dataStore
 import com.capstone.scancamanalyze.databinding.FragmentHomeBinding
 import com.capstone.scancamanalyze.ui.detail.analyze.DetailAnalyzeActivity
+import com.capstone.scancamanalyze.ui.home.malamhari.MalamHariActivity
+import com.capstone.scancamanalyze.ui.home.pagihari.PagiHariActivity
 import com.capstone.scancamanalyze.ui.home.product.ProductActivity
 import com.capstone.scancamanalyze.ui.welcome.WelcomeActivity
+
 
 class HomeFragment : Fragment() {
 
@@ -23,7 +32,9 @@ class HomeFragment : Fragment() {
         ViewModelFactory.getInstance(requireContext())
     }
     private val binding get() = _binding!!
+    private lateinit var userPreference: UserPreference
     private lateinit var analyzeAdapter: AnalyzeAdapter
+    private lateinit var categoryAdapter: CategoryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,63 +43,87 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        userPreference = UserPreference.getInstance(requireContext().dataStore)
+
+
         setupRecyclerView()
-        fetchStories()
-        binding.containerProducts.setOnClickListener {
-            val intent = Intent(requireContext(), ProductActivity::class.java)
+        viewModel.fetchAnalyzeHistory()
+
+        viewModel.getSession().observe(viewLifecycleOwner) { user ->
+            if (!user.isLogin) {
+                val intent = Intent(requireContext(), WelcomeActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
+            }else{
+                binding.tvHallo.text = "Hallo, ${user.email}"
+            }
+        }
+
+        viewModel.analyzeList.observe(viewLifecycleOwner) { analyzeData ->
+            Log.d("HomeFragment", "Analyze data received: $analyzeData")
+            if (analyzeData.isNotEmpty()) {
+                analyzeAdapter.analyzeList = analyzeData
+                analyzeAdapter.notifyDataSetChanged()
+            } else {
+                Toast.makeText(requireContext(), "No analyze data found", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.morningRoutineCardView.setOnClickListener {
+            val intent = Intent(requireContext(), PagiHariActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Set OnClickListener for night routine icon
+        binding.nightRoutineCardView.setOnClickListener {
+            val intent = Intent(requireContext(), MalamHariActivity::class.java)
             startActivity(intent)
         }
         viewModel.getSession().observe(viewLifecycleOwner) { user ->
             if (!user.isLogin) {
                 val intent = Intent(requireContext(), WelcomeActivity::class.java)
                 startActivity(intent)
+                requireActivity().finish()
             }
         }
-        return root
 
+        return root
     }
 
     private fun setupRecyclerView() {
-        analyzeAdapter = AnalyzeAdapter(emptyList()) { storyId ->
-            Log.d("RecyclerView", "Story ID Clicked: $storyId")
-            navigateToDetailAnalyzeActivity(storyId)
+        analyzeAdapter = AnalyzeAdapter(emptyList()) { position ->
+            // Menangani item click, dapatkan data berdasarkan posisi
+            val analyze = analyzeAdapter.analyzeList[position]
+            navigateToDetailAnalyzeActivity(analyze.id, position) // Pass position
+        }
+        categoryAdapter = CategoryAdapter(categories) { category ->
+            // Handle klik kategori
+            navigateToProductActivity(category)
         }
         binding.rvArticle.layoutManager = LinearLayoutManager(requireContext())
         binding.rvArticle.adapter = analyzeAdapter
+
+        binding.rvCategory.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvCategory.adapter = categoryAdapter
     }
 
-    private fun fetchStories() {
-        viewModel.getStories()
-
-        viewModel.articleList.observe(requireActivity()) { articleResponse ->
-            if (articleResponse.error == false) {
-                articleResponse.listEvents?.let {
-                    analyzeAdapter.article = it
-                    analyzeAdapter.notifyDataSetChanged()
-                }
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    "Error fetching stories: ${articleResponse.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-    }
-
-    private fun navigateToDetailAnalyzeActivity(storyId: Int) {
+    private fun navigateToDetailAnalyzeActivity(analyzeId: Int, position: Int) {
         val intent = Intent(requireContext(), DetailAnalyzeActivity::class.java).apply {
-            putExtra("STORY_ID", storyId) // Mengirimkan storyId ke DetailAnalyzeActivity
+            putExtra("ANALYZE_ID", analyzeId)
+            putExtra("IMAGE_PATH", analyzeAdapter.analyzeList[position].imageName)
+            putExtra("LEVEL", analyzeAdapter.analyzeList[position].level)
+            putExtra("PREDICTION_RESULT", analyzeAdapter.analyzeList[position].predictionResult)
         }
         startActivity(intent)
     }
 
-//    private fun navigateToProdukActivity(productName: String) {
-//        val intent = Intent(requireContext(), ProductActivity::class.java).apply {
-//            putExtra("PRODUCT_NAME", productName) // Mengirimkan data product
-//        }
-//        startActivity(intent)
-//    }
+    private fun navigateToProductActivity(category: Category) {
+        val intent = Intent(requireContext(), ProductActivity::class.java)
+        intent.putExtra("CATEGORY_NAME", category.name)
+        startActivity(intent)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

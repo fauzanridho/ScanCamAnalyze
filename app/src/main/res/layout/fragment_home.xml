@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,26 +18,29 @@
             android:id="@+id/tvWelcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/poppins_medium"
             android:paddingHorizontal="4dp"
-            android:text="Welcome to scancam Analyze..."
+            android:text="@string/title_atas_sendiri"
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/tvHallo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/poppins_bold"
             android:paddingHorizontal="4dp"
-            android:text="Halo"
             android:textSize="24sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/poppins_medium"
             android:paddingHorizontal="4dp"
-            android:text="Lakukan Rutin Kamu dengan beraktivitas supaya kulit tetap sehat"
+            android:text="@string/title_atas"
             android:textSize="14sp" />
 
         <!-- Morning and Night Routines Section -->
@@ -48,6 +51,7 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/morning_routine_card_view"
                 android:layout_width="0dp"
                 android:layout_height="140dp"
                 android:layout_weight="1"
@@ -67,9 +71,11 @@
                         android:src="@drawable/baseline_sun_24" />
 
                     <TextView
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
                         android:text="@string/pagi"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -77,6 +83,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/night_routine_card_view"
                 android:layout_width="0dp"
                 android:layout_height="140dp"
                 android:layout_weight="1"
@@ -99,6 +106,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
                         android:text="@string/malam"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -119,143 +127,27 @@
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:text="Rekomendasi produk perawatan Muka"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/rekomendasi_produk"
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <HorizontalScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="4dp">
+            android:orientation="horizontal"
+            tools:listitem="@layout/item_category" />
 
-            <LinearLayout
-                android:id="@+id/container_products"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
-
-                <!-- Individual Product Items -->
-                <LinearLayout
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:contentDescription="Sabun Cuci Muka"
-                        android:src="@drawable/sabuncucimuka" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:gravity="center"
-                        android:text="Sabun Cuci Muka"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:contentDescription="Pelembab Muka"
-                        android:src="@drawable/pelembabmuka" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:gravity="center"
-                        android:text="Pelembab Muka"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:contentDescription="Toner"
-                        android:src="@drawable/toner" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:gravity="center"
-                        android:text="Toner"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:contentDescription="Serum"
-                        android:src="@drawable/serum" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:gravity="center"
-                        android:text="Serum"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:contentDescription="Sunscreen"
-                        android:src="@drawable/sunscreen" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:gravity="center"
-                        android:text="Sunscreen"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </LinearLayout>
-        </HorizontalScrollView>
-
-
-        <!-- For You Section -->
         <TextView
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
+            android:fontFamily="@font/poppins_bold"
             android:paddingHorizontal="4dp"
-            android:text="For you"
+            android:text="Log Analyze"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -266,4 +158,4 @@
             tools:listitem="@layout/item_analyze_result" />
 
     </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

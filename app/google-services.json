@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "36262004341",
+    "project_id": "scan-cam-analyze",
+    "storage_bucket": "scan-cam-analyze.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:36262004341:android:d40e49a0135de4a5031a3c",
+        "android_client_info": {
+          "package_name": "com.capstone.scancamanalyze"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-3GUXzJKTnn6BycRiQi14ZB70V4yHze4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name" translatable="false">ScanCamAnalyze</string>
+    <string name="title_home" translatable="false">Home</string>
+    <string name="title_camera" translatable="false">Camera</string>
+    <string name="title_Log" translatable="false">Log</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="title_profile" translatable="false">Profile</string>
+    <string name="image_preview" translatable="false">image analysis</string>
+    <string name="title_login_page" translatable="false">Welcome to the App</string>
+    <string name="message_login_page" translatable="false">Please Login</string>
+    <string name="email" translatable="false">Email</string>
+    <string name="password" translatable="false">Password</string>
+    <string name="login" translatable="false">LOGIN</string>
+    <string name="title_signup_page" translatable="false">Please Create an Account First</string>
+    <string name="name" translatable="false">Name</string>
+    <string name="signup" translatable="false">SIGNUP</string>
+    <string name="image_auth" translatable="false">image signup</string>
+    <string name="title_welcome_page" translatable="false">Welcome To The App</string>
+    <string name="message_welcome_page" translatable="false">If you don\t have an account please sign up</string>
+    <string name="avatar" translatable="false">Profile Photo</string>
+    <string name="settings" translatable="false">Settings</string>
+    <string name="language" translatable="false">Language</string>
+    <string name="dark_mode" translatable="false">Dark Mode</string>
+    <string name="logout" translatable="false">Logout</string>
+    <string name="camera" translatable="false">Camera</string>
+    <string name="gallery" translatable="false">Gallery</string>
+    <string name="analyze" translatable="false">Analyze</string>
+    <string name="level" translatable="false">Level</string>
+    <string name="result_analyze" translatable="false">The results are here\n1. Cystic acne: morning recommendation level 1\n2. Bumps: morning recommendation level 2</string>
+    <string name="title_signup" translatable="false">Create a new account</string>
+    <string name="register" translatable="false">REGISTER</string>
+    <string name="description" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
+    <string name="photo" translatable="false">detail photo analyze\n</string>
+    <string name="back_button" translatable="false">back</string>
+    <string name="product_image" translatable="false">product image</string>
+    <string name="pagi" translatable="false">Morning</string>
+    <string name="malam" translatable="false">Evening</string>
+    <string name="error_email">Email Incorrect Format</string>
+    <string name="error_password">Minimum 8 characters, At least 1 number.</string>
+    <string name="category_item">Item Category</string>
+    <string name="title_atas">Do Your Routine by being active so that your skin stays healthy</string>
+    <string name="title_atas_sendiri">Welcome to the Application...</string>
+    <string name="rekomendasi_produk">Recommendations for facial care products</string>
+
+</resources>

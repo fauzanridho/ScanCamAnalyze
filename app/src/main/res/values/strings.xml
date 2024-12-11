@@ -19,7 +19,7 @@
     <string name="title_welcome_page">Selamat Datang Di Aplikasi</string>
     <string name="message_welcome_page">Jika Belum Punya Account Harap Signup</string>
     <string name="avatar">Foto Profile</string>
-    <string name="settings">Setting</string>
+    <string name="settings">Settings</string>
     <string name="language">Language</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="logout">Logout</string>
@@ -36,4 +36,11 @@
     <string name="product_image">produk image</string>
     <string name="pagi">Pagi hari</string>
     <string name="malam">Malam Hari</string>
+    <string name="error_email">Format email tidak valid</string>
+    <string name="error_password">Minimal 8 karakter, Setidaknya 1 angka.</string>
+    <string name="category_item">Kategori Item</string>
+    <string name="title_atas">Lakukan Rutin Kamu dengan beraktivitas supaya kulit tetap sehat</string>
+    <string name="title_atas_sendiri">Selamat datang di Aplikasi...</string>
+    <string name="rekomendasi_produk">Rekomendasi produk perawatan Muka</string>
+
 </resources>

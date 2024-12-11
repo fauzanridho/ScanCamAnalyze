@@ -3,10 +3,13 @@ package com.capstone.scancamanalyze
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.capstone.scancamanalyze.data.repository.UserRepository
 import com.capstone.scancamanalyze.di.Injection
-import com.capstone.scancamanalyze.ui.login.LoginViewModel
-import com.capstone.scancamanalyze.data.UserRepository
+import com.capstone.scancamanalyze.ui.camera.CameraViewModel
 import com.capstone.scancamanalyze.ui.home.HomeViewModel
+import com.capstone.scancamanalyze.ui.home.malamhari.MalamHariViewModel
+import com.capstone.scancamanalyze.ui.home.pagihari.PagiHariViewModel
+import com.capstone.scancamanalyze.ui.home.product.ProductViewModel
 import com.capstone.scancamanalyze.ui.profile.DataStoreManager
 import com.capstone.scancamanalyze.ui.profile.ProfileViewModel
 
@@ -18,11 +21,22 @@ class ViewModelFactory(private val repository: UserRepository, private val dataS
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
                 HomeViewModel(repository) as T
             }
-            modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
-                LoginViewModel(repository) as T
-            }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
                 ProfileViewModel(repository, dataStoreManager) as T
+            }
+            modelClass.isAssignableFrom(CameraViewModel::class.java) -> {
+                CameraViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(ProductViewModel::class.java) -> {
+                ProductViewModel(repository) as T
+            }
+
+            modelClass.isAssignableFrom(PagiHariViewModel::class.java) -> {
+                PagiHariViewModel(repository) as T
+            }
+
+            modelClass.isAssignableFrom(MalamHariViewModel::class.java) -> {
+                MalamHariViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

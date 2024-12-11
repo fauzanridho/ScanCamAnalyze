@@ -6,29 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".ui.welcome.WelcomeActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_width="415dp"
+        android:layout_height="455dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/welcome"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-94dp" />
 
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="32dp"
+        android:fontFamily="@font/poppins_bold"
         android:text="@string/title_welcome_page"
-        android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal" />
 
@@ -36,49 +37,44 @@
         android:id="@+id/descTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="224dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
         android:text="@string/message_welcome_page"
-        android:textColor="@color/colorPrimary"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/colorPrimary"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/poppins_medium"
         android:text="@string/login"
-        app:flow_horizontalBias="0.0"
-        app:layout_constraintBottom_toTopOf="@+id/descTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-<!--    app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"-->
-<!--    app:layout_constraintStart_toStartOf="parent"-->
-<!--    app:layout_constraintTop_toBottomOf="@+id/descTextView"-->
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signupButton" />
 
     <Button
         android:id="@+id/signupButton"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/colorPrimary"
+        android:fontFamily="@font/poppins_medium"
         android:text="@string/signup"
-        app:layout_constraintBottom_toTopOf="@+id/loginButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-<!--    app:layout_constraintEnd_toEndOf="parent"-->
-<!--    app:layout_constraintStart_toStartOf="@+id/guidelineVertical"-->
-<!--    app:layout_constraintTop_toBottomOf="@+id/descTextView"-->
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineHorizontal"
