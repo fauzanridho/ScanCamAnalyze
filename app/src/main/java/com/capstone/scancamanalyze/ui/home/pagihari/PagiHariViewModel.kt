@@ -20,29 +20,19 @@ class PagiHariViewModel(private val repository: UserRepository) : ViewModel() {
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> = _errorMessage
 
-    fun fetchProduct(category: String) {
+    fun fetchProduct() {
         _isLoading.value = true
         viewModelScope.launch {
             try {
-                val pagiResponse = repository.getProduct("pagi", category)
-                val malamResponse = repository.getProduct("malam", category)
-
-                val combinedFiles = mutableListOf<FilesItem>()
-                pagiResponse?.files?.let {
-                    combinedFiles.addAll(it.filterNotNull())
-                    Log.d("ProductViewModel", "Pagi files: ${it.size}")
-                }
-                malamResponse?.files?.let {
-                    combinedFiles.addAll(it.filterNotNull())
-                    Log.d("ProductViewModel", "Malam files: ${it.size}")
-                }
-
-                if (combinedFiles.isEmpty()) {
-                    _errorMessage.value = "Failed to load $category data."
+                val response = repository.getallpagi()
+                _productData.value = response
+                if (response == null) {
+                    _errorMessage.value = "Failed to load data."
                 } else {
-                    _productData.value = Product(files = combinedFiles)
                     _errorMessage.value = null
                 }
+
+
             } catch (e: Exception) {
                 _errorMessage.value = e.message ?: "An unexpected error occurred."
             } finally {
@@ -61,6 +51,4 @@ class PagiHariViewModel(private val repository: UserRepository) : ViewModel() {
             }
         }
     }
-
-
 }

@@ -51,8 +51,16 @@ class UserRepository private constructor(
         return analyzeDao.getAllAnalyzes()
     }
 
-    suspend fun getProduct(time: String, category: String): Product? {
-        val response = apiService.getProduct(time, category)
+    suspend fun getProduct(waktu: String, produk: String): Product? {
+        val response = apiService.getProduct(waktu, produk)
+        return if (response.isSuccessful) response.body() else null
+    }
+    suspend fun getallmalam(): Product? {
+        val response = apiService.getallmalam()
+        return if (response.isSuccessful) response.body() else null
+    }
+    suspend fun getallpagi(): Product? {
+        val response = apiService.getallpagi()
         return if (response.isSuccessful) response.body() else null
     }
 
