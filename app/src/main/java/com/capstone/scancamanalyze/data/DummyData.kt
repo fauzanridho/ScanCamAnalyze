@@ -14,7 +14,7 @@ val categories = listOf(
     Category("Pelembab", R.drawable.pelembabmuka),
     Category("Sunscreen", R.drawable.sunscreen),
     Category("Serum", R.drawable.serum),
-    Category("Sabun Cuci Muka", R.drawable.sabuncucimuka),
+    Category("Facialwash", R.drawable.sabuncucimuka),
     Category("Toner", R.drawable.toner)
 )
 

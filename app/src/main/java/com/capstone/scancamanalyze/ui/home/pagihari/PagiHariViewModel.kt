@@ -1,5 +1,6 @@
-package com.capstone.scancamanalyze.ui.home.product
+package com.capstone.scancamanalyze.ui.home.pagihari
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,7 +10,7 @@ import com.capstone.scancamanalyze.data.api.Product
 import com.capstone.scancamanalyze.data.repository.UserRepository
 import kotlinx.coroutines.launch
 
-class ProductViewModel(private val repository: UserRepository) : ViewModel() {
+class PagiHariViewModel(private val repository: UserRepository) : ViewModel() {
     private val _productData = MutableLiveData<Product?>()
     val productData: LiveData<Product?> = _productData
 
@@ -29,9 +30,11 @@ class ProductViewModel(private val repository: UserRepository) : ViewModel() {
                 val combinedFiles = mutableListOf<FilesItem>()
                 pagiResponse?.files?.let {
                     combinedFiles.addAll(it.filterNotNull())
+                    Log.d("ProductViewModel", "Pagi files: ${it.size}")
                 }
                 malamResponse?.files?.let {
                     combinedFiles.addAll(it.filterNotNull())
+                    Log.d("ProductViewModel", "Malam files: ${it.size}")
                 }
 
                 if (combinedFiles.isEmpty()) {
@@ -58,4 +61,6 @@ class ProductViewModel(private val repository: UserRepository) : ViewModel() {
             }
         }
     }
+
+
 }

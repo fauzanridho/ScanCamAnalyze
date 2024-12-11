@@ -7,6 +7,9 @@ import com.capstone.scancamanalyze.data.repository.UserRepository
 import com.capstone.scancamanalyze.di.Injection
 import com.capstone.scancamanalyze.ui.camera.CameraViewModel
 import com.capstone.scancamanalyze.ui.home.HomeViewModel
+import com.capstone.scancamanalyze.ui.home.malamhari.MalamHariViewModel
+import com.capstone.scancamanalyze.ui.home.pagihari.PagiHariViewModel
+import com.capstone.scancamanalyze.ui.home.product.ProductViewModel
 import com.capstone.scancamanalyze.ui.profile.DataStoreManager
 import com.capstone.scancamanalyze.ui.profile.ProfileViewModel
 
@@ -23,6 +26,17 @@ class ViewModelFactory(private val repository: UserRepository, private val dataS
             }
             modelClass.isAssignableFrom(CameraViewModel::class.java) -> {
                 CameraViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(ProductViewModel::class.java) -> {
+                ProductViewModel(repository) as T
+            }
+
+            modelClass.isAssignableFrom(PagiHariViewModel::class.java) -> {
+                PagiHariViewModel(repository) as T
+            }
+
+            modelClass.isAssignableFrom(MalamHariViewModel::class.java) -> {
+                MalamHariViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

@@ -38,25 +38,14 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <!-- Brand Product -->
-<!--        <TextView-->
-<!--            android:id="@+id/tvProductBrand"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="4dp"-->
-<!--            android:fontFamily="@font/poppins_medium"-->
-<!--            android:text="Nama Brand"-->
-<!--            android:textSize="14sp" />-->
-
-        <!-- Deskripsi Product -->
         <TextView
             android:id="@+id/tvProductDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="5"
             android:text="Deskripsi singkat produk"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:layout_marginTop="4dp" />
 
         <!-- Harga Product -->

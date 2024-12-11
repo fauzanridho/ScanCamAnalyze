@@ -16,7 +16,7 @@ class DetailProduct : AppCompatActivity() {
 
         // Mendapatkan data dari intent
         val productName = intent.getStringExtra("EXTRA_PRODUCT_NAME")
-        val productDetail = intent.getStringExtra("EXTRA_PRODUCT_DETAIL")
+        val productDetail = intent.getStringExtra("EXTRA_PRODUCT_DESCRIPTION")
         val productImage = intent.getStringExtra("EXTRA_PRODUCT_IMAGE")
         val productKategori = intent.getStringExtra("EXTRA_PRODUCT_KATEGORI")
 

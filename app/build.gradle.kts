@@ -81,4 +81,6 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     //animation
     implementation(libs.lottie)
+    implementation(libs.okhttp)
+
 }
