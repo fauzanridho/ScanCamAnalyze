@@ -2,59 +2,20 @@ package com.capstone.scancamanalyze.data.api
 
 import com.google.gson.annotations.SerializedName
 
-data class LoginResponse(
+data class Response(
 
-    @field:SerializedName("message")
-    val message: String? = null,
-
-    @field:SerializedName("token")
-    val token: String? = null
+	@field:SerializedName("files")
+	val files: List<FilesItem?>? = null
 )
 
-data class RegisterResponse(
+data class FilesItem(
 
-    @field:SerializedName("message")
-    val message: String? = null,
+	@field:SerializedName("name")
+	val name: String? = null,
 
-    @field:SerializedName("userId")
-    val userId: String? = null
-)
+	@field:SerializedName("type")
+	val type: String? = null,
 
-data class Toner(
-
-    @field:SerializedName("ItemToner")
-    val itemToner: List<ProductItem?>? = null
-)
-
-data class ProductItem(
-
-    @field:SerializedName("image")
-    val image: String? = null,
-
-    @field:SerializedName("nama")
-    val nama: String? = null,
-
-    @field:SerializedName("kategori")
-    val kategori: String? = null,
-
-    @field:SerializedName("id")
-    val id: Int? = null,
-
-    @field:SerializedName("detail")
-    val detail: String? = null
-)
-
-data class Avatar(
-
-    @field:SerializedName("Avatar")
-    val avatar: List<AvatarItem?>? = null
-)
-
-data class AvatarItem(
-
-    @field:SerializedName("image")
-    val image: String? = null,
-
-    @field:SerializedName("id")
-    val id: Int? = null
+	@field:SerializedName("url")
+	val url: String? = null
 )

@@ -15,9 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.capstone.scancamanalyze.ViewModelFactory
 import com.capstone.scancamanalyze.databinding.FragmentCameraBinding
-import com.capstone.scancamanalyze.di.Injection
 import com.capstone.scancamanalyze.ml.ImageClassifierHelper
-import com.capstone.scancamanalyze.ui.home.HomeViewModel
 
 import java.io.File
 import java.io.FileOutputStream
@@ -90,7 +88,7 @@ class CameraFragment : Fragment() {
                     Log.e("ImageClassifier", error)
                 }
 
-                override fun onResults(results: MutableList<ImageClassifierHelper.Classifications>) {
+                override fun onResults(results: List<ImageClassifierHelper.Classifications>) {
                     displayResults(results)
                 }
             }
@@ -134,7 +132,7 @@ class CameraFragment : Fragment() {
         imageClassifierHelper.classifyStaticImage(uri)
     }
 
-    private fun displayResults(results: MutableList<ImageClassifierHelper.Classifications>) {
+    private fun displayResults(results: List<ImageClassifierHelper.Classifications>) {
         if (results.isEmpty()) {
             binding.resultText.text = "No results found"
             Log.e("CameraFragment", "No classification results")

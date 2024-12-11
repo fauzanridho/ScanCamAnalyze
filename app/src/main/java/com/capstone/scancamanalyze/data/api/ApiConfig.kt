@@ -13,7 +13,7 @@ object ApiConfig {
             .addInterceptor(loggingInterceptor)
             .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://event-api.dicoding.dev/")
+            .baseUrl("http://34.101.224.206:8080/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
