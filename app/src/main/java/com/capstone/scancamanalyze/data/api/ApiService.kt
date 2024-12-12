@@ -20,11 +20,4 @@ interface ApiService {
     suspend fun getallpagi(
     ): Response<Product>
 
-    @GET("allmalam")
-    suspend fun getallmalam(
-    ): Response<Product>
-
-    @GET("allpagi")
-    suspend fun getallpagi(
-    ): Response<Product>
 }

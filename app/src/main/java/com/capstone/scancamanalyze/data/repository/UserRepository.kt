@@ -65,14 +65,6 @@ class UserRepository private constructor(
         val response = apiService.getProduct(waktu, produk)
         return if (response.isSuccessful) response.body() else null
     }
-    suspend fun getallmalam(): Product? {
-        val response = apiService.getallmalam()
-        return if (response.isSuccessful) response.body() else null
-    }
-    suspend fun getallpagi(): Product? {
-        val response = apiService.getallpagi()
-        return if (response.isSuccessful) response.body() else null
-    }
 
     suspend fun getallmalam(): Product? {
         val response = apiService.getallmalam()

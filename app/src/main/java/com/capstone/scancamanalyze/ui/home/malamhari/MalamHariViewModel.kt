@@ -22,7 +22,7 @@ class MalamHariViewModel(private val repository: UserRepository) : ViewModel() {
         _isLoading.value = true
         viewModelScope.launch {
             try {
-                val response = repository.getallpagi()
+                val response = repository.getallmalam()
                 _productData.value = response
                 if (response == null) {
                     _errorMessage.value = "Failed to load data."
