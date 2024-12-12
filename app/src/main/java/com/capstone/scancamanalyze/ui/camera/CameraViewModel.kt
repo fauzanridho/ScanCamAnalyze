@@ -28,22 +28,33 @@ class CameraViewModel(private val repository: UserRepository) : ViewModel() {
     }
 
     fun uploadImage(file: File) {
-        // Upload image using the repository
         viewModelScope.launch {
             val response: AnalyzeResponse? = repository.uploadImage(file)
 
-            // Handle the response
             if (response != null) {
-                // Update the LiveData with the description and level
-                _text.value = response.description
-                _level.value = response.level
-                // Log the level
+                _text.value = response.description ?: "No description"
+                _level.value = response.level ?: -1
                 Log.d(
                     "CameraViewModel",
-                    "Level: ${response.level}, Description: ${response.description}"
+                    "Upload successful: ${response.description}, Level: ${response.level}"
                 )
             } else {
                 _text.value = "Error uploading image"
+                Log.e("CameraViewModel", "Upload failed")
+            }
+        }
+    }
+
+    fun saveAnalyzeData(imageName: String, level: Int, predictionResult: String) {
+        viewModelScope.launch {
+            try {
+                repository.saveAnalyzeData(imageName, level, predictionResult)
+                Log.d(
+                    "CameraViewModel",
+                    "Data saved: $imageName, Level: $level, Result: $predictionResult"
+                )
+            } catch (e: Exception) {
+                Log.e("CameraViewModel", "Error saving data: ${e.message}")
             }
         }
     }

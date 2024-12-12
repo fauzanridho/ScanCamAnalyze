@@ -76,11 +76,15 @@ class CameraFragment : Fragment() {
 
     private fun setupObservers() {
         viewModel.text.observe(viewLifecycleOwner) { description ->
-            binding.resultText.text = description  // Display the description
+            Log.d("CameraFragment", "Description updated: $description")
+            binding.resultText.text = description
+            checkAndSaveData()
         }
 
         viewModel.level.observe(viewLifecycleOwner) { level ->
-            binding.levelTitle.text = "Level: $level"  // Display the level
+            Log.d("CameraFragment", "Level updated: $level")
+            binding.levelTitle.text = "Level: $level"
+            checkAndSaveData()
         }
 
         viewModel.imageUri.observe(viewLifecycleOwner) { uri ->
@@ -103,12 +107,34 @@ class CameraFragment : Fragment() {
         binding.buttonAnalyze.setOnClickListener {
             viewModel.imageUri.value?.let { uri ->
                 val imageFile = uriToFile(uri, requireContext())
-                viewModel.uploadImage(imageFile)  // Use uploadImage function in the ViewModel
+                viewModel.uploadImage(imageFile)
+                Log.d("CameraFragment", "Analyzing image...")
             } ?: run {
                 Log.e("CameraFragment", "No image selected")
             }
         }
+
     }
+
+    private fun checkAndSaveData() {
+        val imageUri = viewModel.imageUri.value
+        val imageName = imageUri?.toString()  // Mengambil URI lengkap sebagai string
+        val level = viewModel.level.value
+        val predictionResult = viewModel.text.value
+
+        if (imageName != null && level != null && predictionResult != null) {
+            viewModel.saveAnalyzeData(imageName, level, predictionResult)
+            Log.d("CameraFragment", "Data saved successfully")
+        } else {
+            Log.e(
+                "CameraFragment",
+                "Invalid data: Missing fields - imageName=$imageName, level=$level, predictionResult=$predictionResult"
+            )
+        }
+    }
+
+
+
 
     // Convert Bitmap to a temporary file URI
     private fun bitmapToTempUri(bitmap: Bitmap): Uri? {
