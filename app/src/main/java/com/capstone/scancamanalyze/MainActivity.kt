@@ -28,41 +28,29 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Inisialisasi DataStoreManager
         dataStoreManager = DataStoreManager(this)
         userPreference = UserPreference.getInstance(dataStore)
 
-
-        // Terapkan tema Dark Mode
         applyTheme()
 
-        // Inisialisasi layout binding
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         lifecycleScope.launch {
             userPreference.getSession().collect { user ->
                 if (!user.isLogin) {
-                    // User is not logged in, redirect to LoginActivity
                     startActivity(Intent(this@MainActivity, LoginActivity::class.java))
                     finish()
                 } else {
-                    // User is logged in, setup Bottom Navigation
                     setupBottomNavigation()
                 }
             }
         }
 
-        // Setup Bottom Navigation
         setupBottomNavigation()
-
-        // Hapus Action Bar
         getSupportActionBar()?.hide()
     }
 
-    /**
-     * Mengatur tema Dark Mode sesuai preferensi yang disimpan
-     */
     private fun applyTheme() {
         lifecycleScope.launch {
             dataStoreManager.themeFlow.collect { isDarkMode ->
@@ -76,9 +64,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Mengatur Bottom Navigation dan NavController
-     */
     private fun setupBottomNavigation() {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(

@@ -35,8 +35,6 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-
-        // Load the saved avatar from SharedPreferences
         val sharedPref =
             requireContext().getSharedPreferences("user_preferences", Context.MODE_PRIVATE)
         val avatarUrl = sharedPref.getString("avatar_url", null)
@@ -44,7 +42,6 @@ class ProfileFragment : Fragment() {
             Glide.with(this).load(it).into(binding.imgAvatar)
         }
 
-        // Logout
         binding.containerLogout.setOnClickListener {
             viewModel.logout()
         }
@@ -72,11 +69,9 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        // Initialize Avatar Adapter
         avatarAdapter = AvatarAdapter(avatars) { selectedImage ->
             Glide.with(this).load(selectedImage).into(binding.imgAvatar)
 
-            // Save the selected avatar to SharedPreferences
             val editor = sharedPref.edit()
             editor.putString("avatar_url", selectedImage)
             editor.apply()
@@ -91,7 +86,6 @@ class ProfileFragment : Fragment() {
         binding.rvAvatars.layoutManager = GridLayoutManager(requireContext(), 4)
         binding.rvAvatars.adapter = avatarAdapter
 
-        // Observe user session
         viewModel.getSession().observe(viewLifecycleOwner) { user ->
             val name = user.email
             binding.tvName.text = name
@@ -116,7 +110,7 @@ class ProfileFragment : Fragment() {
                 .setPositiveButton(getString(android.R.string.ok)) { _, _ ->
                     val selectedLanguageCode = languageCodes[selectedLanguageIndex]
                     viewModel.changeLanguage(requireContext(), selectedLanguageCode)
-                    // Restart activity to apply changes
+
                     val intent = requireActivity().intent
                     requireActivity().finish()
                     startActivity(intent)
@@ -125,14 +119,12 @@ class ProfileFragment : Fragment() {
                 .show()
         }
 
-        // Dark mode toggle
         binding.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
             lifecycleScope.launch {
                 viewModel.setDarkMode(isChecked)
             }
         }
 
-        // Observe dark mode setting
         lifecycleScope.launch {
             viewModel.isDarkMode().observe(viewLifecycleOwner) { isDarkMode ->
                 binding.switchDarkMode.isChecked = isDarkMode

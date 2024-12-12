@@ -6,8 +6,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.capstone.scancamanalyze.data.api.AnalyzeResponse
 import com.capstone.scancamanalyze.data.repository.UserRepository
 import kotlinx.coroutines.launch
+import java.io.File
 
 class CameraViewModel(private val repository: UserRepository) : ViewModel() {
     private val _text = MutableLiveData<String>().apply {
@@ -18,19 +20,42 @@ class CameraViewModel(private val repository: UserRepository) : ViewModel() {
     private val _imageUri = MutableLiveData<Uri?>()
     val imageUri: LiveData<Uri?> get() = _imageUri
 
+    private val _level = MutableLiveData<Int?>()
+    val level: LiveData<Int?> get() = _level
+
     fun setImageUri(uri: Uri) {
         _imageUri.value = uri
     }
 
-    fun saveAnalyzeData(imageUri: Uri, level: Int, predictionResult: String) {
-        // Convert Uri to String
-        val imageUriString = imageUri.toString()
-
-        // Save the analyze data using the repository
+    fun uploadImage(file: File) {
         viewModelScope.launch {
-            repository.saveAnalyzeData(imageUriString, level, predictionResult)
-        }
+            val response: AnalyzeResponse? = repository.uploadImage(file)
 
-        Log.d("CameraViewModel", "Analyze data saved: $imageUriString, $level, $predictionResult")
+            if (response != null) {
+                _text.value = response.description ?: "No description"
+                _level.value = response.level ?: -1
+                Log.d(
+                    "CameraViewModel",
+                    "Upload successful: ${response.description}, Level: ${response.level}"
+                )
+            } else {
+                _text.value = "Error uploading image"
+                Log.e("CameraViewModel", "Upload failed")
+            }
+        }
+    }
+
+    fun saveAnalyzeData(imageName: String, level: Int, predictionResult: String) {
+        viewModelScope.launch {
+            try {
+                repository.saveAnalyzeData(imageName, level, predictionResult)
+                Log.d(
+                    "CameraViewModel",
+                    "Data saved: $imageName, Level: $level, Result: $predictionResult"
+                )
+            } catch (e: Exception) {
+                Log.e("CameraViewModel", "Error saving data: ${e.message}")
+            }
+        }
     }
 }

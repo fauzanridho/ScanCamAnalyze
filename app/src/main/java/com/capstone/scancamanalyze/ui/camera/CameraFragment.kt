@@ -5,6 +5,8 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,8 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.capstone.scancamanalyze.ViewModelFactory
 import com.capstone.scancamanalyze.databinding.FragmentCameraBinding
-import com.capstone.scancamanalyze.ml.ImageClassifierHelper
-
+import com.capstone.scancamanalyze.uriToFile
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -25,9 +26,6 @@ class CameraFragment : Fragment() {
 
     private var _binding: FragmentCameraBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var imageClassifierHelper: ImageClassifierHelper
-
     private val viewModel by viewModels<CameraViewModel> {
         ViewModelFactory.getInstance(requireContext())
     }
@@ -40,69 +38,56 @@ class CameraFragment : Fragment() {
                     binding.imagePreview.setImageBitmap(it)
                     val tempUri = bitmapToTempUri(it)
                     tempUri?.let { uri ->
-                        viewModel.setImageUri(uri)  // Simpan imageUri ke ViewModel
+                        viewModel.setImageUri(uri)
                     }
                 }
             }
         }
 
-    private val galleryLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == Activity.RESULT_OK) {
-                val uri = it.data?.data
+    private val pickImageLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val uri = result.data?.data
                 uri?.let {
                     binding.imagePreview.setImageURI(it)
-                    viewModel.setImageUri(it)  // Simpan imageUri ke ViewModel
+                    val fileName = getFileNameFromUri(it)
+                    Log.d("CameraFragment", "Selected file: $fileName")
+                    viewModel.setImageUri(it)
                 }
+            } else {
+                Log.e("CameraFragment", "No image selected")
             }
         }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentCameraBinding.inflate(inflater, container, false)
-
-        // Inisialisasi ImageClassifierHelper
-        setupClassifier()
-
-        // Observasi hasil klasifikasi
-        setupObservers()
-
-        // Inisialisasi listener untuk tombol
+        setupObserversImage()
         setupListeners()
-
         return binding.root
     }
 
-    private fun setupClassifier() {
-        imageClassifierHelper = ImageClassifierHelper(
-            threshold = 0.5f,
-            maxResults = 4,
-            context = requireContext(),
-            classifierListener = object : ImageClassifierHelper.ClassifierListener {
-                override fun onError(error: String) {
-                    Log.e("ImageClassifier", error)
-                }
-
-                override fun onResults(results: List<ImageClassifierHelper.Classifications>) {
-                    displayResults(results)
-                }
-            }
-        )
-    }
-
     private fun setupObservers() {
-        viewModel.text.observe(viewLifecycleOwner) {
-            binding.resultText.text = it
+        viewModel.text.observe(viewLifecycleOwner) { description ->
+            binding.resultText.text = description
+            checkAndSaveData()
         }
 
+        viewModel.level.observe(viewLifecycleOwner) { level ->
+            binding.levelTitle.text = "Level: $level"
+            checkAndSaveData()
+        }
+
+
+    }
+
+    private fun setupObserversImage() {
         viewModel.imageUri.observe(viewLifecycleOwner) { uri ->
             uri?.let {
-                binding.imagePreview.setImageURI(it)  // Update preview jika imageUri berubah
+                binding.imagePreview.setImageURI(it)
             }
         }
     }
@@ -114,55 +99,72 @@ class CameraFragment : Fragment() {
         }
 
         binding.buttonGallery.setOnClickListener {
-            val galleryIntent =
-                Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            galleryLauncher.launch(galleryIntent)
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = "image/*"
+            }
+            pickImageLauncher.launch(intent)
         }
 
         binding.buttonAnalyze.setOnClickListener {
             viewModel.imageUri.value?.let { uri ->
-                classifyImageFromUri(uri)
+                val imageFile = uriToFile(uri, requireContext())
+
+                binding.progressBar.visibility = View.VISIBLE
+                viewModel.uploadImage(imageFile)
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    binding.progressBar.visibility = View.GONE
+                    setupObservers()
+                    Log.d("CameraFragment", "Analyzing image...")
+                }, 5000)
             } ?: run {
                 Log.e("CameraFragment", "No image selected")
             }
         }
     }
 
-    private fun classifyImageFromUri(uri: Uri) {
-        imageClassifierHelper.classifyStaticImage(uri)
+    private fun checkAndSaveData() {
+        val imageUri = viewModel.imageUri.value
+        val fileName = getFileNameFromUri(imageUri)
+        val level = viewModel.level.value
+        val predictionResult = viewModel.text.value
+
+        if (fileName != null && level != null && predictionResult != null) {
+            viewModel.saveAnalyzeData(imageUri.toString(), level, predictionResult)
+            Log.d("CameraFragment", "Data saved successfully")
+        } else {
+            Log.e(
+                "CameraFragment",
+                "Invalid data: Missing fields - fileName=$fileName, level=$level, predictionResult=$predictionResult"
+            )
+        }
     }
 
-    private fun displayResults(results: List<ImageClassifierHelper.Classifications>) {
-        if (results.isEmpty()) {
-            binding.resultText.text = "No results found"
-            Log.e("CameraFragment", "No classification results")
-            return
+    private fun getFileNameFromUri(uri: Uri?): String? {
+        uri ?: return null
+        val cursor = requireContext().contentResolver.query(
+            uri, arrayOf(MediaStore.Images.Media.DISPLAY_NAME),
+            null, null, null
+        )
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val nameIndex = it.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME)
+                return it.getString(nameIndex)
+            }
         }
-
-        // Formatkan hasil menjadi string
-        val resultText = results.joinToString(separator = "\n") { "${it.label}: ${"%.2f".format(it.score * 100)}%" }
-        binding.resultText.text = resultText
-
-        // Ambil data klasifikasi terbaik
-        val bestResult = results.maxByOrNull { it.score }
-        val level = (bestResult?.score ?: 0f) * 100 // Mengonversi ke persentase
-        val predictionResult = bestResult?.label ?: "Unknown"
-
-        // Simpan hasil ke ViewModel
-        viewModel.imageUri.value?.let { uri ->
-            viewModel.saveAnalyzeData(uri, level.toInt(), predictionResult.toString())
-        } ?: Log.e("CameraFragment", "No imageUri available for saving results")
+        return null
     }
 
     private fun bitmapToTempUri(bitmap: Bitmap): Uri? {
         return try {
-            val tempFile = File.createTempFile("temp_image", ".png", requireContext().cacheDir)
-            val outputStream = FileOutputStream(tempFile)
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
-            outputStream.close()
+            val tempFile = File.createTempFile("temp_image", ".jpg", requireContext().cacheDir)
+            FileOutputStream(tempFile).use { outputStream ->
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+            }
             Uri.fromFile(tempFile)
         } catch (e: IOException) {
-            e.printStackTrace()
+            Log.e("CameraFragment", "Error saving image: ${e.message}")
             null
         }
     }
@@ -170,6 +172,5 @@ class CameraFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        imageClassifierHelper.close()
     }
 }

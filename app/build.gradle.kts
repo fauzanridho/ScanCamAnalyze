@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.datastore.core.android)
     implementation(libs.firebase.auth)
+    implementation(libs.androidx.espresso.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -79,8 +80,11 @@ dependencies {
     ksp(libs.room.compiler)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-    //animation
     implementation(libs.lottie)
     implementation(libs.okhttp)
+
+    implementation(libs.hilt.android)
+
+
 
 }

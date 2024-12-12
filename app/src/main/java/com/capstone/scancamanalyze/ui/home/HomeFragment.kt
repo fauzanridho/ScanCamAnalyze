@@ -75,7 +75,6 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
-        // Set OnClickListener for night routine icon
         binding.nightRoutineCardView.setOnClickListener {
             val intent = Intent(requireContext(), MalamHariActivity::class.java)
             startActivity(intent)
@@ -93,12 +92,10 @@ class HomeFragment : Fragment() {
 
     private fun setupRecyclerView() {
         analyzeAdapter = AnalyzeAdapter(emptyList()) { position ->
-            // Menangani item click, dapatkan data berdasarkan posisi
             val analyze = analyzeAdapter.analyzeList[position]
-            navigateToDetailAnalyzeActivity(analyze.id, position) // Pass position
+            navigateToDetailAnalyzeActivity(analyze.id, position)
         }
         categoryAdapter = CategoryAdapter(categories) { category ->
-            // Handle klik kategori
             navigateToProductActivity(category)
         }
         binding.rvArticle.layoutManager = LinearLayoutManager(requireContext())
