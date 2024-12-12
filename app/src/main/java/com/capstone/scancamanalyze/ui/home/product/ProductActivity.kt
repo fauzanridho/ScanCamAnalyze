@@ -45,7 +45,6 @@ class ProductActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-
         // Observe the sunscreen data
         productViewModel.productData.observe(this, Observer { products ->
             products?.let {

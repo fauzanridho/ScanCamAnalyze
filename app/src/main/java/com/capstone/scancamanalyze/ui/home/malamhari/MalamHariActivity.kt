@@ -9,9 +9,12 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.capstone.scancamanalyze.ViewModelFactory
 import com.capstone.scancamanalyze.adapter.ProductAdapter
+
+
 import com.capstone.scancamanalyze.data.api.FilesItem
 import com.capstone.scancamanalyze.databinding.ActivityMalamHariBinding
 import com.capstone.scancamanalyze.ui.detail.product.DetailProduct
+
 
 class MalamHariActivity : AppCompatActivity() {
 
@@ -58,37 +61,24 @@ class MalamHariActivity : AppCompatActivity() {
 
     private fun combineData(files: List<FilesItem>): List<FilesItem> {
         val combinedData = mutableListOf<FilesItem>()
-
-        // Gunakan coroutine untuk menjalankan operasi jaringan secara asynchronous
         for (i in files.indices step 2) {
             val imageFile = files[i]
             val textFile = files.getOrNull(i + 1)
-
-            if (imageFile != null) {
-                // Memanggil ViewModel untuk mengambil teks secara asynchronous
-                textFile?.url?.let { url ->
-                    viewModel.fetchText(url) { descriptionText ->
-                        // Gabungkan gambar dan deskripsi setelah mengambil teks
-                        val combinedItem = FilesItem(
-                            name = textFile.name ?: "No Name",
-                            type = "image", // Tipe gambar
-                            url = imageFile.url, // URL gambar
-                            description = descriptionText // Deskripsi dari file teks
-                        )
-                        combinedData.add(combinedItem)
-                    }
-                } ?: run {
+            if (textFile != null) {
+                // Fetch description using viewModel.fetchText
+                viewModel.fetchText(textFile.url!!) { description ->
                     val combinedItem = FilesItem(
-                        name = textFile?.name ?: "No Name",
+                        name = textFile.name,
                         type = "image",
                         url = imageFile.url,
-                        description = "No Description"
+                        description = description // Set the fetched description
                     )
                     combinedData.add(combinedItem)
+                    // Update the adapter after fetching the description
+                    productAdapter.notifyItemInserted(combinedData.size - 1)
                 }
             }
         }
-
         return combinedData
     }
 
@@ -110,6 +100,7 @@ class MalamHariActivity : AppCompatActivity() {
 
         binding.rvProducts.layoutManager = GridLayoutManager(this, 2)
         binding.rvProducts.adapter = productAdapter
+        productAdapter.notifyDataSetChanged()
 
     }
 }

@@ -2,6 +2,14 @@ package com.capstone.scancamanalyze.data.api
 
 import com.google.gson.annotations.SerializedName
 
+data class AnalyzeResponse(
+
+    @field:SerializedName("level")
+    val level: Int? = null,
+
+    @field:SerializedName("description")
+    val description: String? = null
+)
 
 data class Product(
 

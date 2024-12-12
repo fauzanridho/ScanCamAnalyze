@@ -10,4 +10,12 @@ interface ApiService {
         @Path("waktu") waktu: String,
         @Path("produk") produk: String
     ): Response<Product>
+
+    @GET("allmalam")
+    suspend fun getallmalam(
+    ): Response<Product>
+
+    @GET("allpagi")
+    suspend fun getallpagi(
+    ): Response<Product>
 }
