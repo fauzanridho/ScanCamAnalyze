@@ -10,7 +10,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -38,17 +37,23 @@ class CameraFragment : Fragment() {
                     binding.imagePreview.setImageBitmap(it)
                     val tempUri = bitmapToTempUri(it)
                     tempUri?.let { uri ->
-                        viewModel.setImageUri(uri)  // Save imageUri to ViewModel
+                        viewModel.setImageUri(uri)
                     }
                 }
             }
         }
 
+    // Ganti bagian ini untuk menggunakan file chooser
     private val pickImageLauncher =
-        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-            if (uri != null) {
-                binding.imagePreview.setImageURI(uri)
-                viewModel.setImageUri(uri)  // Save imageUri to ViewModel
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val uri = result.data?.data
+                uri?.let {
+                    binding.imagePreview.setImageURI(it)
+                    val fileName = getFileNameFromUri(it)
+                    Log.d("CameraFragment", "Selected file: $fileName")
+                    viewModel.setImageUri(it)
+                }
             } else {
                 Log.e("CameraFragment", "No image selected")
             }
@@ -60,36 +65,25 @@ class CameraFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCameraBinding.inflate(inflater, container, false)
-
-        // Observers for imageUri and text
         setupObservers()
-
-        // Initialize listeners for buttons
         setupListeners()
-
-        // Request permissions to access storage and camera
-
-
         return binding.root
     }
 
-
     private fun setupObservers() {
         viewModel.text.observe(viewLifecycleOwner) { description ->
-            Log.d("CameraFragment", "Description updated: $description")
             binding.resultText.text = description
             checkAndSaveData()
         }
 
         viewModel.level.observe(viewLifecycleOwner) { level ->
-            Log.d("CameraFragment", "Level updated: $level")
             binding.levelTitle.text = "Level: $level"
             checkAndSaveData()
         }
 
         viewModel.imageUri.observe(viewLifecycleOwner) { uri ->
             uri?.let {
-                binding.imagePreview.setImageURI(it)  // Update preview when imageUri changes
+                binding.imagePreview.setImageURI(it)
             }
         }
     }
@@ -100,8 +94,13 @@ class CameraFragment : Fragment() {
             cameraLauncher.launch(cameraIntent)
         }
 
+        // Ubah button gallery untuk meluncurkan file chooser
         binding.buttonGallery.setOnClickListener {
-            pickImageLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = "image/*" // Ganti sesuai jenis file yang diinginkan
+            }
+            pickImageLauncher.launch(intent)
         }
 
         binding.buttonAnalyze.setOnClickListener {
@@ -113,35 +112,45 @@ class CameraFragment : Fragment() {
                 Log.e("CameraFragment", "No image selected")
             }
         }
-
     }
 
     private fun checkAndSaveData() {
         val imageUri = viewModel.imageUri.value
-        val imageName = imageUri?.toString()  // Mengambil URI lengkap sebagai string
+        val fileName = getFileNameFromUri(imageUri)
         val level = viewModel.level.value
         val predictionResult = viewModel.text.value
 
-        if (imageName != null && level != null && predictionResult != null) {
-            viewModel.saveAnalyzeData(imageName, level, predictionResult)
+        if (fileName != null && level != null && predictionResult != null) {
+            viewModel.saveAnalyzeData(imageUri.toString(), level, predictionResult)
             Log.d("CameraFragment", "Data saved successfully")
         } else {
             Log.e(
                 "CameraFragment",
-                "Invalid data: Missing fields - imageName=$imageName, level=$level, predictionResult=$predictionResult"
+                "Invalid data: Missing fields - fileName=$fileName, level=$level, predictionResult=$predictionResult"
             )
         }
     }
 
+    private fun getFileNameFromUri(uri: Uri?): String? {
+        uri ?: return null
+        val cursor = requireContext().contentResolver.query(
+            uri, arrayOf(MediaStore.Images.Media.DISPLAY_NAME),
+            null, null, null
+        )
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val nameIndex = it.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME)
+                return it.getString(nameIndex)
+            }
+        }
+        return null
+    }
 
-
-
-    // Convert Bitmap to a temporary file URI
     private fun bitmapToTempUri(bitmap: Bitmap): Uri? {
         return try {
-            val tempFile = File.createTempFile("temp_image", ".png", requireContext().cacheDir)
+            val tempFile = File.createTempFile("temp_image", ".jpg", requireContext().cacheDir)
             FileOutputStream(tempFile).use { outputStream ->
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
             }
             Uri.fromFile(tempFile)
         } catch (e: IOException) {
