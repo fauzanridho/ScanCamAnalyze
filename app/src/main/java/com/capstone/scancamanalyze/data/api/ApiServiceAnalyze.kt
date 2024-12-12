@@ -8,8 +8,8 @@ import retrofit2.http.Part
 
 interface ApiServiceAnalyze {
     @Multipart
-    @POST("upload") // Endpoint for uploading the file
+    @POST("upload")
     suspend fun uploadImage(
-        @Part file: MultipartBody.Part // The file being uploaded
+        @Part file: MultipartBody.Part
     ): Response<AnalyzeResponse>
 }

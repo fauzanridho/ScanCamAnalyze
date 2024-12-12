@@ -51,7 +51,7 @@ class ProductViewModel(private val repository: UserRepository) : ViewModel() {
     fun fetchText(url: String, onResult: (String) -> Unit) {
         viewModelScope.launch {
             try {
-                val text = repository.fetchText(url)  // Memanggil repository untuk ambil teks
+                val text = repository.fetchText(url)
                 onResult(text)
             } catch (e: Exception) {
                 onResult("Error: ${e.message}")

@@ -5,6 +5,8 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -24,7 +26,6 @@ class CameraFragment : Fragment() {
 
     private var _binding: FragmentCameraBinding? = null
     private val binding get() = _binding!!
-
     private val viewModel by viewModels<CameraViewModel> {
         ViewModelFactory.getInstance(requireContext())
     }
@@ -43,7 +44,6 @@ class CameraFragment : Fragment() {
             }
         }
 
-    // Ganti bagian ini untuk menggunakan file chooser
     private val pickImageLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -65,7 +65,7 @@ class CameraFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCameraBinding.inflate(inflater, container, false)
-        setupObservers()
+        setupObserversImage()
         setupListeners()
         return binding.root
     }
@@ -81,6 +81,10 @@ class CameraFragment : Fragment() {
             checkAndSaveData()
         }
 
+
+    }
+
+    private fun setupObserversImage() {
         viewModel.imageUri.observe(viewLifecycleOwner) { uri ->
             uri?.let {
                 binding.imagePreview.setImageURI(it)
@@ -94,11 +98,10 @@ class CameraFragment : Fragment() {
             cameraLauncher.launch(cameraIntent)
         }
 
-        // Ubah button gallery untuk meluncurkan file chooser
         binding.buttonGallery.setOnClickListener {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
                 addCategory(Intent.CATEGORY_OPENABLE)
-                type = "image/*" // Ganti sesuai jenis file yang diinginkan
+                type = "image/*"
             }
             pickImageLauncher.launch(intent)
         }
@@ -106,8 +109,15 @@ class CameraFragment : Fragment() {
         binding.buttonAnalyze.setOnClickListener {
             viewModel.imageUri.value?.let { uri ->
                 val imageFile = uriToFile(uri, requireContext())
+
+                binding.progressBar.visibility = View.VISIBLE
                 viewModel.uploadImage(imageFile)
-                Log.d("CameraFragment", "Analyzing image...")
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    binding.progressBar.visibility = View.GONE
+                    setupObservers()
+                    Log.d("CameraFragment", "Analyzing image...")
+                }, 5000)
             } ?: run {
                 Log.e("CameraFragment", "No image selected")
             }

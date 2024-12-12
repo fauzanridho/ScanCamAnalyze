@@ -2,6 +2,7 @@ package com.capstone.scancamanalyze.ui.home.malamhari
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -31,7 +32,6 @@ class MalamHariActivity : AppCompatActivity() {
 
         viewModel.fetchProduct()
 
-        // Observe the LiveData from the ViewModel
         observeViewModel()
 
         supportActionBar?.hide()
@@ -39,21 +39,21 @@ class MalamHariActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
 
-        // Observe the sunscreen data
+        viewModel.isLoading.observe(this) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+
         viewModel.productData.observe(this, Observer { products ->
             products?.let {
                 val product = it.files?.filterNotNull() ?: emptyList()
 
-                // Menggabungkan data gambar dan teks sesuai urutan
                 val combinedData = combineData(product)
                 setupRecyclerView(combinedData)
             }
         })
 
-        // Observe error message
         viewModel.errorMessage.observe(this, Observer { errorMessage ->
             errorMessage?.let {
-                // Handle the error (e.g., show a Toast or Snackbar)
                 showErrorMessage(it)
             }
         })
@@ -65,16 +65,14 @@ class MalamHariActivity : AppCompatActivity() {
             val imageFile = files[i]
             val textFile = files.getOrNull(i + 1)
             if (textFile != null) {
-                // Fetch description using viewModel.fetchText
                 viewModel.fetchText(textFile.url!!) { description ->
                     val combinedItem = FilesItem(
                         name = textFile.name,
                         type = "image",
                         url = imageFile.url,
-                        description = description // Set the fetched description
+                        description = description
                     )
                     combinedData.add(combinedItem)
-                    // Update the adapter after fetching the description
                     productAdapter.notifyItemInserted(combinedData.size - 1)
                 }
             }
@@ -83,17 +81,15 @@ class MalamHariActivity : AppCompatActivity() {
     }
 
     private fun showErrorMessage(message: String) {
-        // You can show an error message to the user, e.g., using a Toast or Snackbar
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun setupRecyclerView(products: List<FilesItem>) {
-        // Setup the RecyclerView with the adapter
         productAdapter = ProductAdapter(products) { product ->
             val intent = Intent(this, DetailProduct::class.java).apply {
                 putExtra("EXTRA_PRODUCT_NAME", product.name)
-                putExtra("EXTRA_PRODUCT_TYPE", product.type)  // Update based on the data fields
-                putExtra("EXTRA_PRODUCT_URL", product.url)   // Pass the URL for the image
+                putExtra("EXTRA_PRODUCT_TYPE", product.type)
+                putExtra("EXTRA_PRODUCT_URL", product.url)
             }
             startActivity(intent)
         }

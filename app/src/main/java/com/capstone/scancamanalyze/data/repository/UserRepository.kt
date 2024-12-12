@@ -77,25 +77,19 @@ class UserRepository private constructor(
     }
 
     suspend fun uploadImage(filePath: File): AnalyzeResponse? {
-        // Prepare the file to upload
         val file = filePath
-        // Create RequestBody using the correct mime type for image/jpeg
         val requestBody: RequestBody = file.asRequestBody("image/jpeg".toMediaType())
-        // Create MultipartBody.Part for the file
         val filePart: MultipartBody.Part =
             MultipartBody.Part.createFormData("file", file.name, requestBody)
 
         try {
-            // Make the API call to upload the image
             val response = apiServiceAnalyze.uploadImage(filePart)
 
             Log.d("UserRepository", "file path: $filePath")
 
-            // Check if the response is successful and process the response
             if (response.isSuccessful) {
                 val responseBody = response.body()
                 return responseBody?.let {
-                    // Return the description and level as AnalyzeResponse
                     AnalyzeResponse(
                         description = it.description,
                         level = it.level
@@ -114,7 +108,7 @@ class UserRepository private constructor(
     suspend fun fetchText(url: String): String {
         val request = Request.Builder().url(url).build()
 
-        return withContext(Dispatchers.IO) {  // Pindahkan operasi jaringan ke background thread
+        return withContext(Dispatchers.IO) {
             try {
                 val response: Response = client.newCall(request).execute()
                 if (response.isSuccessful) {

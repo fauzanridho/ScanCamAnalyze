@@ -1,5 +1,6 @@
 package com.capstone.scancamanalyze.adapter
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
@@ -31,6 +32,7 @@ class AnalyzeAdapter(
     inner class ViewHolder(private val binding: ItemAnalyzeResultBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        @SuppressLint("SetTextI18n")
         fun bind(analyze: AnalyzeEntity) {
             binding.tvLevel.text = "Level: ${analyze.level}"
             binding.tvDescription.text = "Prediction: ${analyze.predictionResult}"

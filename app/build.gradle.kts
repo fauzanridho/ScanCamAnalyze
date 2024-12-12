@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("com.google.devtools.ksp")
     alias(libs.plugins.google.gms.google.services)
-//    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -81,7 +80,6 @@ dependencies {
     ksp(libs.room.compiler)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-    //animation
     implementation(libs.lottie)
     implementation(libs.okhttp)
 

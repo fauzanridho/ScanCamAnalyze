@@ -18,20 +18,17 @@ class ProductAdapter(
     class ProductViewHolder(private val binding: ItemProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: FilesItem, onClick: (FilesItem) -> Unit) {
-            // Set product name
 
             binding.tvProductName.text = product.name
             binding.tvProductDescription.text = product.description
 
 
-            // Use Glide to load image for the products with type "image"
             if (product.type == "image") {
                 Glide.with(binding.root.context)
                     .load(product.url)
                     .into(binding.ivProductImage)
             } else {
-                // Handle text or other types (you may need a different UI for them)
-                binding.ivProductImage.setImageResource(android.R.color.transparent) // Hide image for non-image types
+                binding.ivProductImage.setImageResource(android.R.color.transparent)
             }
 
             binding.root.setOnClickListener {
@@ -51,25 +48,23 @@ class ProductAdapter(
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = products[position]
         holder.bind(product) {
-            // On click, pass the data to DetailProduct Activity
             val intent = Intent(holder.itemView.context, DetailProduct::class.java)
             intent.putExtra("EXTRA_PRODUCT_NAME", product.name)
-            intent.putExtra("EXTRA_PRODUCT_TYPE", product.type) // Passing the type if needed
+            intent.putExtra("EXTRA_PRODUCT_TYPE", product.type)
             intent.putExtra(
                 "EXTRA_PRODUCT_IMAGE",
                 product.url
-            ) // Passing the URL as image or description
+            )
             intent.putExtra(
                 "EXTRA_PRODUCT_DESCRIPTION",
                 product.description
-            ) // Passing the description
+            )
             holder.itemView.context.startActivity(intent)
         }
     }
 
     override fun getItemCount() = products.size
 
-    // Update the data in the adapter
     fun updateData(newProducts: List<FilesItem>) {
         products = newProducts
         notifyDataSetChanged()
