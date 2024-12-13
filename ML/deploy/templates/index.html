@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Condition Severity</title>
+</head>
+<body>
+    <h1>Upload Image for Skin Condition Severity Prediction</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="file">Choose Image:</label>
+        <input type="file" name="file" id="file" accept="image/*" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    <div id="result" style="margin-top: 20px;">
+        <!-- The result will be shown here -->
+    </div>
+
+    <script>
+        const form = document.querySelector('form');
+        const resultDiv = document.getElementById('result');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(form);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.level !== undefined) {
+                    resultDiv.innerHTML = `
+                        <h3>Prediction Result:</h3>
+                        <p>Level: ${data.level}</p>
+                        <p>Description: ${data.description}</p>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<p>Error: ${data.error}</p>`;
+                }
+            })
+            .catch(error => {
+                resultDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+            });
+        });
+    </script>
+</body>
+</html>
