@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">ScanCamAnalyze</string>
+    <string name="app_name" translatable="false">SkinCamAnalyze</string>
     <string name="title_home" translatable="false">Home</string>
     <string name="title_camera" translatable="false">Camera</string>
     <string name="title_Log" translatable="false">Log</string>
