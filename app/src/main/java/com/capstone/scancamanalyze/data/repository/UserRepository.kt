@@ -9,6 +9,8 @@ import com.capstone.scancamanalyze.data.api.ApiServiceAnalyze
 import com.capstone.scancamanalyze.data.api.Product
 import com.capstone.scancamanalyze.data.local.AnalyzeDao
 import com.capstone.scancamanalyze.data.local.AnalyzeEntity
+import com.capstone.scancamanalyze.data.local.ProductDao
+import com.capstone.scancamanalyze.data.local.ProductEntity
 import com.capstone.scancamanalyze.data.pref.UserModel
 import com.capstone.scancamanalyze.data.pref.UserPreference
 import com.google.firebase.Firebase
@@ -28,12 +30,27 @@ import java.io.File
 
 class UserRepository private constructor(
     private val userPreference: UserPreference,
-    private val analyzeDao: AnalyzeDao
+    private val analyzeDao: AnalyzeDao,
+    private val productDao: ProductDao
 ) {
     private val auth: FirebaseAuth = Firebase.auth
     private val apiService: ApiService = ApiConfig.getApiService()
     private val apiServiceAnalyze: ApiServiceAnalyze = ApiConfigAnalyze.getApiService()
     private val client = OkHttpClient()
+
+
+    suspend fun getAllProducts(): List<ProductEntity> {
+        return productDao.getAllProducts()
+    }
+
+    suspend fun getProductsByCategory(category: String): List<ProductEntity> {
+        return productDao.getProductsByCategory(category)
+    }
+
+    // Fungsi untuk menyimpan produk ke database
+    suspend fun insertProduct(product: ProductEntity) {
+        productDao.insertProduct(product)
+    }
 
     fun getSession(): Flow<UserModel> {
         return userPreference.getSession()
@@ -127,10 +144,11 @@ class UserRepository private constructor(
         private var instance: UserRepository? = null
         fun getInstance(
             userPreference: UserPreference,
-            analyzeDao: AnalyzeDao
+            analyzeDao: AnalyzeDao,
+            productDao: ProductDao
         ): UserRepository =
             instance ?: synchronized(this) {
-                instance ?: UserRepository(userPreference, analyzeDao)
+                instance ?: UserRepository(userPreference, analyzeDao, productDao)
             }.also { instance = it }
     }
 }

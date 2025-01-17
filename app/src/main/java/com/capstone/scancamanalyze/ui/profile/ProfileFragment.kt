@@ -3,6 +3,7 @@ package com.capstone.scancamanalyze.ui.profile
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,6 +45,7 @@ class ProfileFragment : Fragment() {
 
         binding.containerLogout.setOnClickListener {
             viewModel.logout()
+            Log.d("ProfileFragment", "Logout button clicked")
         }
 
         binding.imgAvatar.setOnClickListener {

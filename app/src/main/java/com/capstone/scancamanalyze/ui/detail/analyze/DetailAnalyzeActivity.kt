@@ -2,6 +2,7 @@ package com.capstone.scancamanalyze.ui.detail.analyze
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.capstone.scancamanalyze.databinding.ActivityDetailAnalyzeBinding
@@ -9,7 +10,7 @@ import com.capstone.scancamanalyze.databinding.ActivityDetailAnalyzeBinding
 class DetailAnalyzeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailAnalyzeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
-        getSupportActionBar()?.hide()
+        supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         binding = ActivityDetailAnalyzeBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -24,6 +25,6 @@ class DetailAnalyzeActivity : AppCompatActivity() {
 
         binding.tvDetailAnalyze.text = "Level: $level"
         binding.tvDetailDescriptionAnalyze.text = "Prediction: $predictionResult"
-
+        Log.d("DetailAnalyzeActivity", "This is DetailAnalyzeActivity")
     }
 }

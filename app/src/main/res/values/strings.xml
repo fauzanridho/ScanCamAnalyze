@@ -3,7 +3,6 @@
     <string name="title_home">Home</string>
     <string name="title_camera">Camera</string>
     <string name="title_Log">Log</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_profile">Profile</string>
     <string name="image_preview">gambar analisis</string>
@@ -42,5 +41,4 @@
     <string name="title_atas">Lakukan Rutin Kamu dengan beraktivitas supaya kulit tetap sehat</string>
     <string name="title_atas_sendiri">Selamat datang di Aplikasi...</string>
     <string name="rekomendasi_produk">Rekomendasi produk perawatan Muka</string>
-
 </resources>

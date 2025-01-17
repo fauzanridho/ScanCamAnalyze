@@ -19,11 +19,13 @@ class DetailProduct : AppCompatActivity() {
         val productDetail = intent.getStringExtra("EXTRA_PRODUCT_DESCRIPTION")
         val productImage = intent.getStringExtra("EXTRA_PRODUCT_IMAGE")
         val productKategori = intent.getStringExtra("EXTRA_PRODUCT_KATEGORI")
+        val productPrice = intent.getDoubleExtra("EXTRA_PRODUCT_PRICE", 0.0)
 
         // Menampilkan data di layout
         binding.tvProductName.text = productName
         binding.tvProductDetails.text = productDetail
-        binding.tvProductPrice.text = productKategori
+        binding.tvProductPrice.text = productPrice.toString()
+        binding.tvProductCategory.text = productKategori
 
         // Menggunakan Glide untuk memuat gambar dari URL
         Glide.with(this)
