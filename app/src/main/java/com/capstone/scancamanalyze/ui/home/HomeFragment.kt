@@ -19,9 +19,9 @@ import com.capstone.scancamanalyze.data.pref.UserPreference
 import com.capstone.scancamanalyze.data.pref.dataStore
 import com.capstone.scancamanalyze.databinding.FragmentHomeBinding
 import com.capstone.scancamanalyze.ui.detail.analyze.DetailAnalyzeActivity
+import com.capstone.scancamanalyze.ui.home.local.ProductLocalActivity
 import com.capstone.scancamanalyze.ui.home.malamhari.MalamHariActivity
 import com.capstone.scancamanalyze.ui.home.pagihari.PagiHariActivity
-import com.capstone.scancamanalyze.ui.home.product.ProductActivity
 import com.capstone.scancamanalyze.ui.welcome.WelcomeActivity
 
 
@@ -117,7 +117,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun navigateToProductActivity(category: Category) {
-        val intent = Intent(requireContext(), ProductActivity::class.java)
+        val intent = Intent(requireContext(), ProductLocalActivity::class.java)
         intent.putExtra("CATEGORY_NAME", category.name)
         startActivity(intent)
     }

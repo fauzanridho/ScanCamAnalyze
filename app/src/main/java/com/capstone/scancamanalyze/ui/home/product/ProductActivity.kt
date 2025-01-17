@@ -2,6 +2,7 @@ package com.capstone.scancamanalyze.ui.home.product
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -32,7 +33,7 @@ class ProductActivity : AppCompatActivity() {
         binding.tvCategoryTitle.text = productName
 
         productViewModel.fetchProduct(productName)
-
+        Log.d("ProductActivity", "Fetching products for category: $productName")
         observeViewModel()
 
         binding.btnBack.setOnClickListener {

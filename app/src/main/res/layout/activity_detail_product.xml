@@ -41,26 +41,26 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Brand Produk -->
-        <TextView
-            android:id="@+id/tvProductBrand"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:fontFamily="@font/poppins_medium"
-            android:text="Brand Produk"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvProductName" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/tvProductBrand"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginHorizontal="16dp"-->
+        <!--            android:fontFamily="@font/poppins_medium"-->
+        <!--            android:text="Brand Produk"-->
+        <!--            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/tvProductName" />-->
 
         <!-- Tab Layout -->
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tvProductBrand"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tvProductName" />
 
         <!-- Deskripsi Produk -->
         <TextView
@@ -70,11 +70,23 @@
             android:layout_margin="16dp"
             android:text="Detail Produk"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-            app:layout_constraintTop_toBottomOf="@id/tabLayout"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tabLayout" />
 
-        <!-- Harga Produk -->
+        <!-- Kategori Produk -->
+        <TextView
+            android:id="@+id/tvProductCategory"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Kategori Produk"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvProductDetails" />
+
         <TextView
             android:id="@+id/tvProductPrice"
             android:layout_width="0dp"
@@ -83,9 +95,9 @@
             android:fontFamily="@font/poppins_bold"
             android:text="Rp 0"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvProductDetails" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

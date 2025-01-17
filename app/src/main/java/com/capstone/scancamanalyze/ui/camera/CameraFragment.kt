@@ -67,21 +67,22 @@ class CameraFragment : Fragment() {
         _binding = FragmentCameraBinding.inflate(inflater, container, false)
         setupObserversImage()
         setupListeners()
+        Log.d("CameraFragment", "Camera Opened")
         return binding.root
+
     }
 
     private fun setupObservers() {
         viewModel.text.observe(viewLifecycleOwner) { description ->
             binding.resultText.text = description
-            checkAndSaveData()
+
         }
 
         viewModel.level.observe(viewLifecycleOwner) { level ->
             binding.levelTitle.text = "Level: $level"
-            checkAndSaveData()
+
         }
-
-
+        checkAndSaveData()
     }
 
     private fun setupObserversImage() {
@@ -117,7 +118,7 @@ class CameraFragment : Fragment() {
                     binding.progressBar.visibility = View.GONE
                     setupObservers()
                     Log.d("CameraFragment", "Analyzing image...")
-                }, 5000)
+                }, 3000)
             } ?: run {
                 Log.e("CameraFragment", "No image selected")
             }
@@ -132,6 +133,7 @@ class CameraFragment : Fragment() {
 
         if (fileName != null && level != null && predictionResult != null) {
             viewModel.saveAnalyzeData(imageUri.toString(), level, predictionResult)
+
             Log.d("CameraFragment", "Data saved successfully")
         } else {
             Log.e(

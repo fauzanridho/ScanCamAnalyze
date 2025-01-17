@@ -129,11 +129,21 @@ class LoginActivity : AppCompatActivity() {
                                 lifecycleScope.launch {
                                     userPreference.saveSession(userModel)
                                 }
-                                val intent = Intent(this, MainActivity::class.java)
-                                intent.flags =
-                                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                startActivity(intent)
-                                finish()
+                                AlertDialog.Builder(this).apply {
+                                    setTitle("Login Berhasil")
+                                    setMessage("Selamat datang, ${user.displayName ?: "Pengguna"}!")
+                                    setPositiveButton("OK") { dialog, _ ->
+                                        // Setelah menekan OK, lanjutkan ke MainActivity
+                                        val intent =
+                                            Intent(this@LoginActivity, MainActivity::class.java)
+                                        intent.flags =
+                                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                        startActivity(intent)
+                                        finish()
+                                    }
+                                    create()
+                                    show()
+                                }
                             }
                         } else {
                             AlertDialog.Builder(this).apply {
